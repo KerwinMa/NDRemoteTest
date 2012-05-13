@@ -201,6 +201,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\GameManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -246,6 +250,10 @@
 			</File>
 			<File
 				RelativePath=".\Include\GameKernelDefine.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Include\GameManager.h"
 				>
 			</File>
 		</Filter>

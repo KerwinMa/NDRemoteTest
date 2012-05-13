@@ -37,6 +37,10 @@ public: virtual void set##funName(const varType& var);
 protected: varType varName;\
 public: virtual varType Get##funName(void) const { return varName; }
 
+#define STATIC_READONLY(varType, varName, funName)\
+protected: static varType varName;\
+public: inline varType Get##funName(void) const { return varName; }
+
 #define INLINE_READONLY(varType, varName, funName)\
 protected: varType varName;\
 public: inline varType Get##funName(void) const { return varName; }
