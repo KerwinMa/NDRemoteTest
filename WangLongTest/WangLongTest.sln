@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MineSweeping", "MineSweeping\MineSweeping.vcproj", "{5FA308B5-2B7C-478A-BE86-F76AF7F51899}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameKernel", "GameKernel\GameKernel.vcproj", "{A1470047-4754-4474-AEF2-B29656E68089}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +15,10 @@ Global
 		{5FA308B5-2B7C-478A-BE86-F76AF7F51899}.Debug|Win32.Build.0 = Debug|Win32
 		{5FA308B5-2B7C-478A-BE86-F76AF7F51899}.Release|Win32.ActiveCfg = Release|Win32
 		{5FA308B5-2B7C-478A-BE86-F76AF7F51899}.Release|Win32.Build.0 = Release|Win32
+		{A1470047-4754-4474-AEF2-B29656E68089}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A1470047-4754-4474-AEF2-B29656E68089}.Debug|Win32.Build.0 = Debug|Win32
+		{A1470047-4754-4474-AEF2-B29656E68089}.Release|Win32.ActiveCfg = Release|Win32
+		{A1470047-4754-4474-AEF2-B29656E68089}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

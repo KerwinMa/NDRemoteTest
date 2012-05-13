@@ -63,6 +63,7 @@
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
+				ImportLibrary="..\..\Lib\$(ConfigurationName)"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -137,6 +138,7 @@
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				ImportLibrary="..\..\Lib\$(ConfigurationName)"
 				TargetMachine="1"
 			/>
 			<Tool
