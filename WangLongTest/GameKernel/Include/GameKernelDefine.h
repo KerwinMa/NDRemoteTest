@@ -101,4 +101,11 @@ do \
 #define BEGIN_KERNEL namespace GameKernel{
 #define END_KERNEL }
 
+typedef enum
+{
+	CON_NONE = 0,
+	CON_INI,
+	CON_XML
+}ConfigType;
+
 #endif

@@ -12,8 +12,12 @@ BEGIN_KERNEL
 class KERNEL_DLL IConfigParser
 {
 public:
+
 	IConfigParser();
 	virtual ~IConfigParser();
+
+	static IConfigParser* CreateConfigParser(ConfigType eType,const char* pszConfigFile);
+
 protected:
 private:
 };
