@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="..\GameKernel\Include;..\..\cocos2d\cocos2dx\include;..\..\cocos2d\cocos2dx\platform;..\..\cocos2d\cocos2dx;..\..\cocos2d\cocos2dx\platform\third_party\win32\OGLES"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -115,6 +116,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="..\GameKernel\Include;..\..\cocos2d\cocos2dx\include;..\..\cocos2d\cocos2dx\platform;..\..\cocos2d\cocos2dx;..\..\cocos2d\cocos2dx\platform\third_party\win32\OGLES"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "INIParser.h"
+#include <fstream>
 
 BEGIN_KERNEL
 
@@ -31,6 +32,13 @@ CINIParser::~CINIParser()
 
 bool CINIParser::Initialise()
 {
+	if (0 == m_pszFilename || !*m_pszFilename)
+	{
+		return false;
+	}
+
+	fstream kReadStream(m_pszFilename);
+
 	return true;
 }
 
