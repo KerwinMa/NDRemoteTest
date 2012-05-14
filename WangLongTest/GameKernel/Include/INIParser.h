@@ -12,9 +12,17 @@ BEGIN_KERNEL
 class KERNEL_DLL CINIParser
 {
 public:
-	CINIParser();
+
+	CINIParser(const char* pszFilename);
 	virtual ~CINIParser();
+
 protected:
+
+	virtual bool Initialise();
+
+	INLINE_CONST_READONLY(char*,m_pszFilename,Filename);
+	INLINE_READONLY(bool,m_bIsInit,Initialised);
+
 private:
 };
 
