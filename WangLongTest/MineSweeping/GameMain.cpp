@@ -8,7 +8,12 @@ int WINAPI _tWinMain (HINSTANCE hInstance,
 					  LPTSTR szCmdLine, 
 					  int iCmdShow)
 {
-	CINIParser kParser(DEF_CONFIG_FILE);
+	CINIParser kParser;
+	
+	if (!kParser.LoadFile(DEF_CONFIG_FILE))
+	{
+		return 0;
+	}
 
 	return 1;
 }

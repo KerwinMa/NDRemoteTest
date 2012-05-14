@@ -9,5 +9,7 @@
 // Windows м╥нд╪Ч:
 
 #include <cocos2d.h>
+#include <vector>
 
+using namespace std;
 using namespace cocos2d;

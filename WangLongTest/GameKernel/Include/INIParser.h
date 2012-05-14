@@ -13,12 +13,16 @@ class KERNEL_DLL CINIParser
 {
 public:
 
-	CINIParser(const char* pszFilename);
+	typedef vector<string> StringVector,*StringVectorPtr;
+
+	CINIParser();
 	virtual ~CINIParser();
+
+	virtual bool LoadFile(const char* pszFilename);
 
 protected:
 
-	virtual bool Initialise();
+	StringVectorPtr m_pkDataVector;
 
 	INLINE_CONST_READONLY(char*,m_pszFilename,Filename);
 	INLINE_READONLY(bool,m_bIsInit,Initialised);
