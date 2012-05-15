@@ -10,9 +10,8 @@
 
 #include <vector>
 #include <cocos2d.h>
-#include <hash_map>
+#include <map>
 #include <string>
 
-using namespace stdext;
 using namespace std;
 using namespace cocos2d;
