@@ -205,7 +205,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\INIParser.cpp"
+				RelativePath=".\IniFile.cpp"
 				>
 			</File>
 			<File
@@ -257,7 +257,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Include\INIParser.h"
+				RelativePath=".\Include\IniFile.h"
 				>
 			</File>
 		</Filter>

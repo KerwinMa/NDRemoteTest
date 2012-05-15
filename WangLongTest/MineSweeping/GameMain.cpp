@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include <INIParser.h>
+#include <IniFile.h>
 
 using namespace GameKernel;
 
@@ -8,7 +8,7 @@ int WINAPI _tWinMain (HINSTANCE hInstance,
 					  LPTSTR szCmdLine, 
 					  int iCmdShow)
 {
-	CINIParser kParser;
+	CIniFile kParser;
 	
 	if (!kParser.LoadFile(DEF_CONFIG_FILE))
 	{

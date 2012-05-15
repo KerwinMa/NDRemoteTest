@@ -10,5 +10,8 @@
 #include <tchar.h>
 
 #include <vector>
+#include <hash_map>
+#include <string>
 
 using namespace std;
+using namespace stdext;
