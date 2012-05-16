@@ -14,25 +14,26 @@ class KERNEL_DLL CIniFile
 public:
 
 	typedef vector<string> StringVector,*StringVectorPtr;
-	typedef map<string,string> SubTitleMap;
-	typedef map<string,SubTitleMap> TitleMap;
+	typedef map<string,string> SubTitleMap,*SubTitleMapPtr;
+	typedef map<string,SubTitleMapPtr> TitleMap;
 
 	CIniFile();
 	virtual ~CIniFile();
 
 	virtual bool LoadFile(const char* pszFilename);
 	virtual void Unload();
-	const char* GetString(const char* pszTitle,const char* pszSubTitle) const;
+	char* GetString(const char* pszTitle,const char* pszSubTitle) const;
 	bool GetInt(const char* pszTitle,const char* pszSubTitle,int& nData) const;
 	bool GetFloat(const char* pszTitle,const char* pszSubTitle,float& fData) const;
 
 protected:
 
+	bool ClearStringMap(TitleMap* pkVector);
 	virtual bool ParseData(StringVector kStringVector);
 	virtual bool CheckComment(string strText);
 	virtual bool CheckVersion(string strText);
 	virtual bool ParseTitle(string& strText);
-	virtual bool ParseSubTitle(string strText,SubTitleMap& kTitleMap);
+	virtual bool ParseSubTitle(string strText,SubTitleMapPtr pkTitleMap);
 
 	TitleMap m_kTitleMap;
 

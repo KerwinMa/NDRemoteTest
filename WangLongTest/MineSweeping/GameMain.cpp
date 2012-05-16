@@ -15,7 +15,7 @@ int WINAPI _tWinMain (HINSTANCE hInstance,
 		return 0;
 	}
 
-	string strValue = kParser.GetString("title0","subtitle0");
+	char* strValue = kParser.GetString("title0","subtitle0");
 
 	return 1;
 }
