@@ -8,6 +8,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MineSweeping", "MineSweepin
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameKernel", "GameKernel\GameKernel.vcproj", "{A1470047-4754-4474-AEF2-B29656E68089}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game Scene", "Game Scene", "{00A20C01-318D-4838-B488-41B6CC2AF8A0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WelcomScene", "WelcomScene\WelcomScene.vcproj", "{122C021A-9B18-4558-8DED-996842974057}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1470047-4754-4474-AEF2-B29656E68089} = {A1470047-4754-4474-AEF2-B29656E68089}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -22,8 +29,15 @@ Global
 		{A1470047-4754-4474-AEF2-B29656E68089}.Debug|Win32.Build.0 = Debug|Win32
 		{A1470047-4754-4474-AEF2-B29656E68089}.Release|Win32.ActiveCfg = Release|Win32
 		{A1470047-4754-4474-AEF2-B29656E68089}.Release|Win32.Build.0 = Release|Win32
+		{122C021A-9B18-4558-8DED-996842974057}.Debug|Win32.ActiveCfg = Debug|Win32
+		{122C021A-9B18-4558-8DED-996842974057}.Debug|Win32.Build.0 = Debug|Win32
+		{122C021A-9B18-4558-8DED-996842974057}.Release|Win32.ActiveCfg = Release|Win32
+		{122C021A-9B18-4558-8DED-996842974057}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{122C021A-9B18-4558-8DED-996842974057} = {00A20C01-318D-4838-B488-41B6CC2AF8A0}
 	EndGlobalSection
 EndGlobal

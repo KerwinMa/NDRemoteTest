@@ -4,8 +4,19 @@
 BEGIN_KERNEL
 
 CGameManager* CGameManager::ms_pkGameManager = 0;
-CGameManager::CGameManager():m_pszGamePath(0),m_bIsInit(false){}
-CGameManager::~CGameManager(){}
+
+CGameManager::CGameManager():
+m_pszGamePath(0),
+m_bIsInit(false)
+{
+	m_pszGamePath = new char[MAX_PATH];
+	memset(m_pszGamePath,0,sizeof(char) * MAX_PATH);
+}
+
+CGameManager::~CGameManager()
+{
+	SafeDeleteArray(m_pszGamePath);
+}
 
 bool CGameManager::Create( const char* pszGameModulePath )
 {
@@ -39,6 +50,8 @@ bool CGameManager::Initialise( const char* pszGameModulePath )
 	{
 		return false;
 	}
+
+	strcpy_s(m_pszGamePath,MAX_PATH,pszGameModulePath);
 
 	m_bIsInit = true;
 	return true;

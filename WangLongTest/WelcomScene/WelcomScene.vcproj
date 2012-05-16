@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="GameKernel"
-	ProjectGUID="{A1470047-4754-4474-AEF2-B29656E68089}"
-	RootNamespace="GameKernel"
+	Name="WelcomScene"
+	ProjectGUID="{122C021A-9B18-4558-8DED-996842974057}"
+	RootNamespace="WelcomScene"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\Bin\$(ConfigurationName)"
+			OutputDirectory="..\..\Bin\$(ConfigurationName)\GameScene"
 			IntermediateDirectory="..\..\Obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\Include;..\..\cocos2d\cocos2dx\include;..\..\cocos2d\cocos2dx\platform;..\..\cocos2d\cocos2dx;..\..\cocos2d\cocos2dx\platform\third_party\win32\OGLES"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;GAMEKERNEL_EXPORTS"
+				AdditionalIncludeDirectories="..\GameKernel\Include;..\..\cocos2d\cocos2dx\include;..\..\cocos2d\cocos2dx\platform;..\..\cocos2d\cocos2dx;..\..\cocos2d\cocos2dx\platform\third_party\win32\OGLES"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;WELCOMSCENE_EXPORTS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,12 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\Lib\$(ConfigurationName)&quot;;..\..\cocos2d\cocos2dx\platform\third_party\win32\libraries"
 				GenerateDebugInformation="true"
 				SubSystem="2"
-				ImportLibrary="..\..\Lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -93,7 +90,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\Bin\$(ConfigurationName)"
+			OutputDirectory="..\..\Bin\$(ConfigurationName)\GameScene"
 			IntermediateDirectory="..\..\Obj\$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -118,8 +115,8 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories=".\Include;..\..\cocos2d\cocos2dx\include;..\..\cocos2d\cocos2dx\platform;..\..\cocos2d\cocos2dx;..\..\cocos2d\cocos2dx\platform\third_party\win32\OGLES"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;GAMEKERNEL_EXPORTS"
+				AdditionalIncludeDirectories="..\GameKernel\Include;..\..\cocos2d\cocos2dx\include;..\..\cocos2d\cocos2dx\platform;..\..\cocos2d\cocos2dx;..\..\cocos2d\cocos2dx\platform\third_party\win32\OGLES"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;WELCOMSCENE_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
@@ -137,14 +134,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\..\Lib\$(ConfigurationName)&quot;;..\..\cocos2d\cocos2dx\platform\third_party\win32\libraries"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				ImportLibrary="..\..\Lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -201,14 +195,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GameManager.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\IniFile.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -244,26 +230,6 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-		</Filter>
-		<Filter
-			Name="Include"
-			>
-			<File
-				RelativePath=".\Include\GameKernelDefine.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Include\GameManager.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Include\GameScene.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Include\IniFile.h"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>
