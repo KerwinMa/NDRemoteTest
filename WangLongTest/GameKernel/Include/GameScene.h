@@ -5,6 +5,8 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
+BEGIN_KERNEL
+
 class IGameScene
 {
 public:
@@ -21,5 +23,7 @@ public:
 protected:
 private:
 };
+
+END_KERNEL
 
 #endif

@@ -258,7 +258,8 @@ bool CIniFile::ParseTitle( string& strText )
 	return true;
 }
 
-bool CIniFile::ParseSubTitle( string strText,SubTitleMapPtr pkTitleMap )
+bool CIniFile::ParseSubTitle( string strText,
+							 SubTitleMapPtr pkTitleMap )
 {
 	if (0 == strText.length())
 	{
@@ -287,7 +288,8 @@ bool CIniFile::ClearStringMap( TitleMap* pkVector )
 		return false;
 	}
 
-	for (TitleMap::iterator it = pkVector->begin();pkVector->end() != it;it++)
+	for (TitleMap::iterator it = pkVector->begin();
+		pkVector->end() != it;it++)
 	{
 		SubTitleMapPtr pkSub = it->second;
 		SafeDelete(pkSub);

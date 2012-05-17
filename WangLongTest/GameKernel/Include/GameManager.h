@@ -24,20 +24,25 @@ public:
 
 	virtual bool LoadGame(const char* pszGameName);
 	virtual void UnloadGame();
+	virtual bool InstallPlugin(IGameScene* pkPlugin);
+	virtual bool UninstallPlugin(IGameScene* pkPlugin);
 
 protected:
 
 	virtual bool Initialise(const char* pszGameModulePath);
+	void ClearScene(SceneVectorPtr pkScene);
 
 	INLINE_CONST_READONLY(char*,m_pszGamePath,GameModulePath);
 	INLINE_READONLY(IGameScene*,m_pkCurrentScene,CurrentScene);
 	INLINE_READONLY(bool,m_bIsInit,Initialised);
 	STATIC_READONLY(CGameManager*,ms_pkGameManager,GameManager);
 
-	SceneVector m_kScenes;
+	SceneVectorPtr m_pkScenes;
 
 private:
 };
+
+#define g_pGame CGameManager::GetGameManager()
 
 END_KERNEL
 

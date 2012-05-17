@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GameManager.h"
 #include "DynamicLibraryManager.h"
+#include <algorithm>
 
 BEGIN_KERNEL
 
@@ -12,12 +13,16 @@ m_bIsInit(false),
 m_pkCurrentScene(0)
 {
 	m_pszGamePath = new char[MAX_PATH];
+	m_pkScenes = new SceneVector;
+
 	memset(m_pszGamePath,0,sizeof(char) * MAX_PATH);
 }
 
 CGameManager::~CGameManager()
 {
 	SafeDeleteArray(m_pszGamePath);
+
+	CDynamicLibraryManager::Destroy();
 }
 
 bool CGameManager::Create( const char* pszGameModulePath )
@@ -55,6 +60,11 @@ bool CGameManager::Initialise( const char* pszGameModulePath )
 
 	strcpy_s(m_pszGamePath,MAX_PATH,pszGameModulePath);
 
+	if (!CDynamicLibraryManager::Create(m_pszGamePath))
+	{
+		return false;
+	}
+
 	m_bIsInit = true;
 	return true;
 }
@@ -88,6 +98,60 @@ bool CGameManager::LoadGame( const char* pszGameName )
 }
 
 void CGameManager::UnloadGame()
+{
+
+}
+
+bool CGameManager::InstallPlugin( IGameScene* pkPlugin )
+{
+	if (0 == pkPlugin)
+	{
+		return false;
+	}
+
+	if (!pkPlugin->Install())
+	{
+		return false;
+	}
+
+	if (find(m_pkScenes->begin(),m_pkScenes->end(),pkPlugin) ==
+		m_pkScenes->end())
+	{
+		m_pkScenes->push_back(pkPlugin);
+
+		if (!pkPlugin->Initialise())
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+bool CGameManager::UninstallPlugin( IGameScene* pkPlugin )
+{
+	if (0 == pkPlugin)
+	{
+		return false;
+	}
+
+	SceneVector::iterator it = find(m_pkScenes->begin(),
+		m_pkScenes->end(),pkPlugin);
+
+	if (m_pkScenes->end() == it)
+	{
+		return false;
+	}
+
+	pkPlugin->Shutdown();
+	pkPlugin->Uninstall();
+
+	m_pkScenes->erase(it);
+
+	return true;
+}
+
+void CGameManager::ClearScene( SceneVectorPtr pkScene )
 {
 
 }

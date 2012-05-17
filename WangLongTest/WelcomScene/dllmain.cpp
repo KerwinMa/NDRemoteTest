@@ -1,5 +1,9 @@
 // dllmain.cpp : 定义 DLL 应用程序的入口点。
 #include "stdafx.h"
+#include "WelcomScene.h"
+#include <GameManager.h>
+
+CWelcomScene* g_pkPlugin = 0;
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
@@ -17,3 +21,14 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 	return TRUE;
 }
 
+extern "C" void WELCOMSCENE_DLL StartPlugin()
+{
+	g_pkPlugin = new CWelcomScene;
+
+	g_pGame->InstallPlugin(g_pkPlugin);
+}
+extern "C" void WELCOMSCENE_DLL StopPlugin()
+{
+	g_pGame->UninstallPlugin(g_pkPlugin);
+	SafeDelete(g_pkPlugin);
+}
