@@ -9,7 +9,7 @@
 
 BEGIN_KERNEL
 
-class CDynamicLibraryManager
+class KERNEL_DLL CDynamicLibraryManager
 {
 public:
 

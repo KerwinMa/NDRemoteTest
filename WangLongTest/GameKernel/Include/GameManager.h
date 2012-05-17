@@ -14,6 +14,8 @@ class KERNEL_DLL CGameManager
 {
 public:
 
+	typedef vector<IGameScene*> SceneVector,*SceneVectorPtr;
+	
 	CGameManager();
 	virtual ~CGameManager();
 
@@ -31,6 +33,8 @@ protected:
 	INLINE_READONLY(IGameScene*,m_pkCurrentScene,CurrentScene);
 	INLINE_READONLY(bool,m_bIsInit,Initialised);
 	STATIC_READONLY(CGameManager*,ms_pkGameManager,GameManager);
+
+	SceneVector m_kScenes;
 
 private:
 };

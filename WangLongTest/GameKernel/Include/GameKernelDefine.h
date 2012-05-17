@@ -15,6 +15,9 @@
 	#endif
 #endif
 
+typedef void (*DLL_START_PLUGIN)();
+typedef void (*DLL_STOP_PLUGIN)();
+
 #define PROPERTY_READONLY(varType, varName, funName)\
 protected: varType varName;\
 public: virtual varType Get##funName(void);
@@ -39,7 +42,11 @@ public: virtual varType Get##funName(void) const { return varName; }
 
 #define STATIC_READONLY(varType, varName, funName)\
 protected: static varType varName;\
-public: inline varType Get##funName(void) const { return varName; }
+public: inline static varType Get##funName(void) { return varName; }
+
+#define INLINE_STATIC_READONLY(varType, varName, funName)\
+protected: static varType varName;\
+public: inline varType Get##funName(void) { return varName; }
 
 #define INLINE_READONLY(varType, varName, funName)\
 protected: varType varName;\

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameManager.h"
+#include "DynamicLibraryManager.h"
 
 BEGIN_KERNEL
 
@@ -64,6 +65,24 @@ bool CGameManager::LoadGame( const char* pszGameName )
 	{
 		return false;
 	}
+
+	CDynamicLibrary* pkLibrary = g_pDynLib->
+		LoadDynamicLibrary(pszGameName);
+
+	if (0 == pkLibrary)
+	{
+		return false;
+	}
+
+	DLL_START_PLUGIN pFunc = (DLL_START_PLUGIN)pkLibrary->
+		GetSysbol("StartPlugin");
+
+	if (!pFunc)
+	{
+		return false;
+	}
+
+	pFunc();
 
 	return true;
 }
