@@ -6,6 +6,7 @@
 #define GAMEMANAGER_H
 
 #include "GameKernelDefine.h"
+#include "GameScene.h"
 
 BEGIN_KERNEL
 
@@ -19,11 +20,15 @@ public:
 	static bool Create(const char* pszGameModulePath);
 	static void Destroy();
 
+	virtual bool LoadGame(const char* pszGameName);
+	virtual void UnloadGame();
+
 protected:
 
 	virtual bool Initialise(const char* pszGameModulePath);
 
 	INLINE_CONST_READONLY(char*,m_pszGamePath,GameModulePath);
+	INLINE_READONLY(IGameScene*,m_pkCurrentScene,CurrentScene);
 	INLINE_READONLY(bool,m_bIsInit,Initialised);
 	STATIC_READONLY(CGameManager*,ms_pkGameManager,GameManager);
 

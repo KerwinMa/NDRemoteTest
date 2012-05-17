@@ -7,7 +7,8 @@ CGameManager* CGameManager::ms_pkGameManager = 0;
 
 CGameManager::CGameManager():
 m_pszGamePath(0),
-m_bIsInit(false)
+m_bIsInit(false),
+m_pkCurrentScene(0)
 {
 	m_pszGamePath = new char[MAX_PATH];
 	memset(m_pszGamePath,0,sizeof(char) * MAX_PATH);
@@ -55,6 +56,21 @@ bool CGameManager::Initialise( const char* pszGameModulePath )
 
 	m_bIsInit = true;
 	return true;
+}
+
+bool CGameManager::LoadGame( const char* pszGameName )
+{
+	if (0 == pszGameName || !*pszGameName)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void CGameManager::UnloadGame()
+{
+
 }
 
 END_KERNEL

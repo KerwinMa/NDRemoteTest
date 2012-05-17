@@ -201,6 +201,14 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\DynamicLibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DynamicLibraryManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameManager.cpp"
 				>
 			</File>
@@ -248,6 +256,14 @@
 		<Filter
 			Name="Include"
 			>
+			<File
+				RelativePath=".\Include\DynamicLibrary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Include\DynamicLibraryManager.h"
+				>
+			</File>
 			<File
 				RelativePath=".\Include\GameKernelDefine.h"
 				>

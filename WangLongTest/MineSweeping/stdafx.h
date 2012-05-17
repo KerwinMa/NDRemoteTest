@@ -12,5 +12,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <hash_map>
 
+using namespace stdext;
 using namespace std;

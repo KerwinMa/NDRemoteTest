@@ -11,7 +11,9 @@
 #include <vector>
 #include <cocos2d.h>
 #include <map>
+#include <hash_map>
 #include <string>
 
+using namespace stdext;
 using namespace std;
 using namespace cocos2d;
