@@ -105,9 +105,24 @@ bool CGameManager::LoadGame( const char* pszGameName )
 		return false;
 	}
 
-	if (m_pkGameDirector->getRunningScene() == m_pkCurrentScene->GetRootScene())
+	CCScene* pkRunningScene = 0;
+
+	pkRunningScene = m_pkGameDirector->getRunningScene();
+
+	if (0 == pkRunningScene)
 	{
-		return false;
+		m_pkGameDirector->runWithScene(m_pkCurrentScene->GetRootScene());
+	}
+	else
+	{
+		if (pkRunningScene == m_pkCurrentScene->GetRootScene())
+		{
+			return false;
+		}
+		else
+		{
+			m_pkGameDirector->replaceScene(m_pkCurrentScene->GetRootScene());
+		}
 	}
 
 	return true;
