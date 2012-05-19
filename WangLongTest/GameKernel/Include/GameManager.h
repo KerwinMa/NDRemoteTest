@@ -24,8 +24,8 @@ public:
 
 	virtual bool LoadGame(const char* pszGameName);
 	virtual void UnloadGame();
-	virtual bool InstallPlugin(IGameScene* pkPlugin);
-	virtual bool UninstallPlugin(IGameScene* pkPlugin);
+	virtual bool InitialiseScene(IGameScene* pkGameScene);
+	virtual bool UninitialiseScene(IGameScene* pkGameScene);
 
 protected:
 

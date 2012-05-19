@@ -20,12 +20,12 @@ bool CWelcomScene::Shutdown()
 	return true;
 }
 
-bool CWelcomScene::Install()
+bool CWelcomScene::BeginScene()
 {
 	return true;
 }
 
-bool CWelcomScene::Uninstall()
+bool CWelcomScene::EndScene()
 {
 	return true;
 }

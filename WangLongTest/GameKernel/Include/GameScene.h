@@ -17,8 +17,8 @@ public:
 	virtual const char* GetName() const = 0;
 	virtual bool Initialise() = 0;
 	virtual bool Shutdown() = 0;
-	virtual bool Install() = 0;
-	virtual bool Uninstall() = 0;
+	virtual bool BeginScene() = 0;
+	virtual bool EndScene() = 0;
 
 protected:
 private:

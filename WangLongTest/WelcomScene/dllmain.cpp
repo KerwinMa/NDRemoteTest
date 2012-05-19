@@ -25,10 +25,10 @@ extern "C" void WELCOMSCENE_DLL StartPlugin()
 {
 	g_pkPlugin = new CWelcomScene;
 
-	g_pGame->InstallPlugin(g_pkPlugin);
+	g_pGame->InitialiseScene(g_pkPlugin);
 }
 extern "C" void WELCOMSCENE_DLL StopPlugin()
 {
-	g_pGame->UninstallPlugin(g_pkPlugin);
+	g_pGame->UninitialiseScene(g_pkPlugin);
 	SafeDelete(g_pkPlugin);
 }

@@ -94,66 +94,62 @@ bool CGameManager::LoadGame( const char* pszGameName )
 
 	pFunc();
 
+	if (0 == m_pkCurrentScene)
+	{
+		return false;
+	}
+
 	return true;
 }
 
-void CGameManager::UnloadGame()
-{
+void CGameManager::UnloadGame(){}
+void CGameManager::ClearScene( SceneVectorPtr pkScene ){}
 
-}
-
-bool CGameManager::InstallPlugin( IGameScene* pkPlugin )
+bool CGameManager::InitialiseScene( IGameScene* pkGameScene )
 {
-	if (0 == pkPlugin)
+	if (0 == pkGameScene)
 	{
 		return false;
 	}
 
-	if (!pkPlugin->Install())
-	{
-		return false;
-	}
-
-	if (find(m_pkScenes->begin(),m_pkScenes->end(),pkPlugin) ==
+	if (find(m_pkScenes->begin(),m_pkScenes->end(),pkGameScene) ==
 		m_pkScenes->end())
 	{
-		m_pkScenes->push_back(pkPlugin);
+		m_pkScenes->push_back(pkGameScene);
 
-		if (!pkPlugin->Initialise())
+		if (!pkGameScene->Initialise())
 		{
 			return false;
+		}
+		else
+		{
+			m_pkCurrentScene = pkGameScene;
 		}
 	}
 
 	return true;
 }
 
-bool CGameManager::UninstallPlugin( IGameScene* pkPlugin )
+bool CGameManager::UninitialiseScene( IGameScene* pkGameScene )
 {
-	if (0 == pkPlugin)
+	if (0 == pkGameScene)
 	{
 		return false;
 	}
 
 	SceneVector::iterator it = find(m_pkScenes->begin(),
-		m_pkScenes->end(),pkPlugin);
+		m_pkScenes->end(),pkGameScene);
 
 	if (m_pkScenes->end() == it)
 	{
 		return false;
 	}
 
-	pkPlugin->Shutdown();
-	pkPlugin->Uninstall();
+	pkGameScene->Shutdown();
 
 	m_pkScenes->erase(it);
 
 	return true;
-}
-
-void CGameManager::ClearScene( SceneVectorPtr pkScene )
-{
-
 }
 
 END_KERNEL
