@@ -8,18 +8,13 @@
 #define WELCOMSCENE_DLL __declspec(dllimport)
 #endif
 
-#include <windows.h>
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
 #include <tchar.h>
-
+#include <cocos2d.h>
 #include <vector>
 #include <map>
+#include <hash_map>
 #include <string>
 
-#include <GameKernelDefine.h>
-#include <GameScene.h>
-
+using namespace stdext;
 using namespace std;
-using namespace GameKernel;
+using namespace cocos2d;

@@ -10,7 +10,8 @@ CGameManager* CGameManager::ms_pkGameManager = 0;
 CGameManager::CGameManager():
 m_pszGamePath(0),
 m_bIsInit(false),
-m_pkCurrentScene(0)
+m_pkCurrentScene(0),
+m_pkGameDirector(0)
 {
 	m_pszGamePath = new char[MAX_PATH];
 	m_pkScenes = new SceneVector;
@@ -65,6 +66,11 @@ bool CGameManager::Initialise( const char* pszGameModulePath )
 		return false;
 	}
 
+	if (!InitialiseDirector())
+	{
+		return false;
+	}
+
 	m_bIsInit = true;
 	return true;
 }
@@ -95,6 +101,11 @@ bool CGameManager::LoadGame( const char* pszGameName )
 	pFunc();
 
 	if (0 == m_pkCurrentScene)
+	{
+		return false;
+	}
+
+	if (m_pkGameDirector->getRunningScene() == m_pkCurrentScene->GetRootScene())
 	{
 		return false;
 	}
@@ -148,6 +159,29 @@ bool CGameManager::UninitialiseScene( IGameScene* pkGameScene )
 	pkGameScene->Shutdown();
 
 	m_pkScenes->erase(it);
+
+	return true;
+}
+
+bool CGameManager::InitialiseDirector()
+{
+	m_pkGameDirector = CCDirector::sharedDirector();
+
+	if (0 == m_pkGameDirector)
+	{
+		return false;
+	}
+
+	m_pkGameDirector->setOpenGLView(&CCEGLView::sharedOpenGLView());
+	m_pkGameDirector->setDisplayFPS(true);
+	m_pkGameDirector->setAnimationInterval(1.0f / 30.0f);
+
+	return true;
+}
+
+bool CGameManager::InitialiseFileEngine()
+{
+	CCFileUtils::setResourcePath("data");
 
 	return true;
 }

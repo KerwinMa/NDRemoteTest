@@ -2,7 +2,7 @@
 #include "WelcomScene.h"
 
 static const char* g_pszName = "WelcomeScene";
-CWelcomScene::CWelcomScene(){}
+CWelcomScene::CWelcomScene():m_pkRootScene(0){}
 CWelcomScene::~CWelcomScene(){}
 
 const char* CWelcomScene::GetName() const
@@ -26,6 +26,11 @@ bool CWelcomScene::BeginScene()
 }
 
 bool CWelcomScene::EndScene()
+{
+	return true;
+}
+
+bool CWelcomScene::init()
 {
 	return true;
 }

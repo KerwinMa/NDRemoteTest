@@ -19,6 +19,7 @@ public:
 	virtual bool Shutdown() = 0;
 	virtual bool BeginScene() = 0;
 	virtual bool EndScene() = 0;
+	virtual CCScene* GetRootScene() const = 0;
 
 protected:
 private:
