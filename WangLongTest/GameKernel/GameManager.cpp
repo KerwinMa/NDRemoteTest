@@ -24,6 +24,9 @@ CGameManager::~CGameManager()
 	SafeDeleteArray(m_pszGamePath);
 
 	CDynamicLibraryManager::Destroy();
+
+	ClearScene(m_pkScenes);
+	SafeDelete(m_pkScenes);
 }
 
 bool CGameManager::Create( const char* pszGameModulePath )
@@ -125,10 +128,63 @@ bool CGameManager::UnloadGame(const char* pszGameName)
 		return false;
 	}
 
+	CDynamicLibrary* pkLib = 0;
+
+	if (0 == (pkLib = g_pDynLib->GetLibrary(pszGameName)))
+	{
+		return false;
+	}
+
+	DLL_STOP_PLUGIN pFunc = (DLL_STOP_PLUGIN)pkLib->
+		GetSysbol("StopPlugin");
+
+	if (!pFunc)
+	{
+		return false;
+	}
+
+	pFunc();
+
+	g_pDynLib->UnloadDynamicLibrary(pszGameName);
+
 	return true;
 }
 
-void CGameManager::ClearScene( SceneVectorPtr pkScene ){}
+void CGameManager::ClearScene( SceneVectorPtr pkScene )
+{
+	if (0 == pkScene)
+	{
+		return;
+	}
+
+	StringVector kStringVector;
+
+	for (unsigned uiIndex = 0;uiIndex < pkScene->size();uiIndex++)
+	{
+		IGameScene* pkTempScene = (*pkScene)[uiIndex];
+
+		if (0 == pkTempScene)
+		{
+			continue;
+		}
+
+		string strName = pkTempScene->GetName();
+		kStringVector.push_back(strName);
+	}
+
+	for (unsigned int i = 0;i < kStringVector.size();i++)
+	{
+		string strName = kStringVector[i];
+
+		if (!UnloadGame(strName.c_str()))
+		{
+			continue;
+		}
+	}
+
+	kStringVector.clear();
+	m_pkScenes->clear();
+}
 
 bool CGameManager::InitialiseScene( IGameScene* pkGameScene )
 {

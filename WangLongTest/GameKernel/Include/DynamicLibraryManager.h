@@ -25,6 +25,8 @@ public:
 	virtual CDynamicLibrary* LoadDynamicLibrary(const char* pszName);
 	virtual bool UnloadDynamicLibrary(const char* pszName);
 
+	CDynamicLibrary* GetLibrary(const char* pszName) const;
+
 protected:
 
 	virtual bool Initialise(const char* pszDefPath);

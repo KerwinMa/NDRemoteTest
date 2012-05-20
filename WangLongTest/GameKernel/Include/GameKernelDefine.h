@@ -17,6 +17,7 @@
 
 typedef void (*DLL_START_PLUGIN)();
 typedef void (*DLL_STOP_PLUGIN)();
+typedef vector<string> StringVector,*StringVectorPtr;
 
 #define PROPERTY_READONLY(varType, varName, funName)\
 protected: varType varName;\

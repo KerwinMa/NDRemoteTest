@@ -121,4 +121,26 @@ bool CDynamicLibraryManager::UnloadDynamicLibrary( const char* pszName )
 	return true;
 }
 
+CDynamicLibrary* CDynamicLibraryManager::GetLibrary( const char* pszName ) const
+{
+	if (0 == pszName || !*pszName)
+	{
+		return 0;
+	}
+
+	CDynamicLibrary* pkLib = 0;
+	string strName = pszName;
+
+	DynamicLibraryMap::iterator it = m_pkDynamicLibraryMap->find(strName);
+
+	if (m_pkDynamicLibraryMap->end() == it)
+	{
+		return pkLib;
+	}
+
+	pkLib = it->second;
+
+	return pkLib;
+}
+
 END_KERNEL

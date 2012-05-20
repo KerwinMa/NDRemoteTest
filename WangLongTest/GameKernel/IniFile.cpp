@@ -106,7 +106,7 @@ char* CIniFile::GetString( const char* pszTitle,
 	strValue = itSubMap->second;
 
 	pszReturn = new char[strValue.length() + 1];
-	memset(pszReturn,0,sizeof(char) * strValue.length());
+	memset(pszReturn,0,sizeof(char) * (strValue.length() + 1));
 	strcpy_s(pszReturn,strValue.length() + 1,strValue.c_str());
 
 	return pszReturn;

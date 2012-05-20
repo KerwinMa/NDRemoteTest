@@ -13,7 +13,6 @@ class KERNEL_DLL CIniFile
 {
 public:
 
-	typedef vector<string> StringVector,*StringVectorPtr;
 	typedef map<string,string> SubTitleMap,*SubTitleMapPtr;
 	typedef map<string,SubTitleMapPtr> TitleMap;
 
