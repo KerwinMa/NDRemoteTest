@@ -90,7 +90,7 @@ bool CWelcomScene::InitialiseUI()
 
 void CWelcomScene::ExitButtonCallback( CCObject* pSender )
 {
-
+	g_pGame->ExitGame();
 }
 
 void CWelcomScene::StartButtonCallback( CCObject* pSender )

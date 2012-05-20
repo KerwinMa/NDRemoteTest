@@ -28,6 +28,7 @@ public:
 	virtual bool UninitialiseScene(IGameScene* pkGameScene);
 	virtual bool RunOrRepeaceScene(CCScene* pkScene);
 	virtual bool StopScene(CCScene* pkScene);
+	virtual void ExitGame();
 
 protected:
 

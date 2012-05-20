@@ -291,4 +291,9 @@ bool CGameManager::StopScene( CCScene* pkScene )
 	return true;
 }
 
+void CGameManager::ExitGame()
+{
+	CCDirector::sharedDirector()->end();
+}
+
 END_KERNEL
