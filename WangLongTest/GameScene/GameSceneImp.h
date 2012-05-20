@@ -26,8 +26,11 @@ public:
 protected:
 
 	bool InitialiseUI();
+	bool InitialiseMap();
 
 	SYNTHESIZE_READONLY(CCScene*,m_pkRootScene,RootScene);
+	INLINE_READONLY(CCTMXTiledMap*,m_pkTiledMap,TiledMap);
+	INLINE_READONLY(CCLayer*,m_pkBackgroundLayer,BackgroundLayer);
 
 private:
 };

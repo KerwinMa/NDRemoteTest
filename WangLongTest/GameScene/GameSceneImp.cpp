@@ -3,7 +3,7 @@
 
 static const char* g_pszName = "GameScene";
 
-CGameSceneImp::CGameSceneImp():m_pkRootScene(0){}
+CGameSceneImp::CGameSceneImp():m_pkRootScene(0),m_pkTiledMap(0),m_pkBackgroundLayer(0){}
 CGameSceneImp::~CGameSceneImp(){}
 
 const char* CGameSceneImp::GetName() const
@@ -22,6 +22,11 @@ bool CGameSceneImp::Initialise()
 	}
 
 	if (!InitialiseUI())
+	{
+		return false;
+	}
+
+	if (!InitialiseMap())
 	{
 		return false;
 	}
@@ -58,5 +63,19 @@ bool CGameSceneImp::init()
 
 bool CGameSceneImp::InitialiseUI()
 {
+	return true;
+}
+
+bool CGameSceneImp::InitialiseMap()
+{
+	m_pkTiledMap = CCTMXTiledMap::tiledMapWithTMXFile("gamemap.tmx");
+
+	if (0 == m_pkTiledMap)
+	{
+		return false;
+	}
+
+	addChild(m_pkTiledMap,-1);
+
 	return true;
 }

@@ -131,6 +131,11 @@ CDynamicLibrary* CDynamicLibraryManager::GetLibrary( const char* pszName ) const
 	CDynamicLibrary* pkLib = 0;
 	string strName = pszName;
 
+	if (0 == m_pkDynamicLibraryMap)
+	{
+		return 0;
+	}
+
 	DynamicLibraryMap::iterator it = m_pkDynamicLibraryMap->find(strName);
 
 	if (m_pkDynamicLibraryMap->end() == it)

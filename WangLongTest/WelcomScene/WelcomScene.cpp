@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "WelcomScene.h"
 
-static const char* g_pszName = "WelcomeScene";
+static const char* g_pszName = "WelcomScene";
 CWelcomScene::CWelcomScene():m_pkRootScene(0),m_pkExitBtn(0),m_pkStartBtn(0),m_pkStartMenu(0){}
 CWelcomScene::~CWelcomScene(){}
 
