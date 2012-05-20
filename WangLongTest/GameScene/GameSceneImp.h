@@ -17,11 +17,12 @@ public:
 	virtual ~CGameSceneImp();
 
 	virtual const char* GetName() const;
-	virtual bool init();
 	virtual bool Initialise();
 	virtual bool Shutdown();
 	virtual bool BeginScene();
 	virtual bool EndScene();
+
+	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
 
 protected:
 

@@ -296,4 +296,36 @@ void CGameManager::ExitGame()
 	CCDirector::sharedDirector()->end();
 }
 
+CCPoint CGameManager::GetTilePositionFromLocation( CCPoint kLocation,
+												  CCTMXTiledMap* pkTiledMap )
+{
+	CCAssert(pkTiledMap,"Null map");
+
+	CCPoint kTildPosDiv;
+	CCPoint kPos;
+
+	float fHalfMapWidth = 0.0f;
+	float fMapHeight = 0.0f;
+	float fTileWidth = 0.0f;
+	float fTileHeight = 0.0f;
+	float fInveseTileY = 0.0f;
+	float fPositionX = 0.0f;
+	float fPositionY = 0.0f;
+
+	kPos = ccpSub(kLocation,pkTiledMap->getPosition());
+
+	fHalfMapWidth = pkTiledMap->getMapSize().width * 0.5f;
+	fMapHeight = pkTiledMap->getMapSize().height;
+	fTileWidth = pkTiledMap->getTileSize().width;
+	fTileHeight = pkTiledMap->getTileSize().height;
+
+	kTildPosDiv = CCPointMake(kPos.x / fTileWidth,kPos.y / fTileHeight);
+	fInveseTileY = fMapHeight - kTildPosDiv.y;
+
+	fPositionX = static_cast<float>(static_cast<int>(fInveseTileY + kTildPosDiv.x - fHalfMapWidth));
+	fPositionY = static_cast<float>(static_cast<int>(fInveseTileY - kTildPosDiv.x + fHalfMapWidth));
+
+	return CCPointMake(fPositionX,fPositionY);
+}
+
 END_KERNEL

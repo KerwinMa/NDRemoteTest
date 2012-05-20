@@ -21,6 +21,8 @@ public:
 
 	static bool Create(const char* pszGameModulePath);
 	static void Destroy();
+	static CCPoint GetTilePositionFromLocation(CCPoint kLocation,
+		CCTMXTiledMap* pkTiledMap);
 
 	virtual bool LoadGame(const char* pszGameName);
 	virtual bool UnloadGame(const char* pszGameName);
