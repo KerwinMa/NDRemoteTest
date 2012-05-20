@@ -23,7 +23,7 @@ public:
 	static void Destroy();
 
 	virtual bool LoadGame(const char* pszGameName);
-	virtual void UnloadGame();
+	virtual bool UnloadGame(const char* pszGameName);
 	virtual bool InitialiseScene(IGameScene* pkGameScene);
 	virtual bool UninitialiseScene(IGameScene* pkGameScene);
 	virtual bool RunOrRepeaceScene(CCScene* pkScene);

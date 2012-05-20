@@ -118,7 +118,16 @@ bool CGameManager::LoadGame( const char* pszGameName )
 	return true;
 }
 
-void CGameManager::UnloadGame(){}
+bool CGameManager::UnloadGame(const char* pszGameName)
+{
+	if (0 == pszGameName || !*pszGameName)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 void CGameManager::ClearScene( SceneVectorPtr pkScene ){}
 
 bool CGameManager::InitialiseScene( IGameScene* pkGameScene )

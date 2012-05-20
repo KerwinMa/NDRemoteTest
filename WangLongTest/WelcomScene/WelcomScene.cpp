@@ -96,6 +96,8 @@ void CWelcomScene::StartButtonCallback( CCObject* pSender )
 	{
 		return;
 	}
+
+	g_pGame->LoadGame("GameScene");
 }
 
 void CWelcomScene::CreditsButtonCallback( CCObject* pSender )
