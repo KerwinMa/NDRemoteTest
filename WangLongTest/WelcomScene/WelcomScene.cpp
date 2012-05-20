@@ -32,6 +32,9 @@ bool CWelcomScene::Initialise()
 
 bool CWelcomScene::Shutdown()
 {
+	m_pkRootScene->autorelease();
+	autorelease();
+
 	return true;
 }
 
@@ -98,7 +101,7 @@ void CWelcomScene::StartButtonCallback( CCObject* pSender )
 	}
 
 	g_pGame->LoadGame("GameScene");
-	g_pGame->UnloadGame(g_pszName);
+	//g_pGame->UnloadGame(g_pszName);
 }
 
 void CWelcomScene::CreditsButtonCallback( CCObject* pSender )

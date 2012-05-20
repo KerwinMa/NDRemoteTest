@@ -23,10 +23,10 @@ CGameManager::~CGameManager()
 {
 	SafeDeleteArray(m_pszGamePath);
 
-	CDynamicLibraryManager::Destroy();
+// 	ClearScene(m_pkScenes);
+// 	SafeDelete(m_pkScenes);
 
-	ClearScene(m_pkScenes);
-	SafeDelete(m_pkScenes);
+	CDynamicLibraryManager::Destroy();
 }
 
 bool CGameManager::Create( const char* pszGameModulePath )
@@ -276,6 +276,16 @@ bool CGameManager::RunOrRepeaceScene( CCScene* pkScene )
 		{
 			m_pkGameDirector->replaceScene(pkScene);
 		}
+	}
+
+	return true;
+}
+
+bool CGameManager::StopScene( CCScene* pkScene )
+{
+	if (0 == pkScene)
+	{
+		return false;
 	}
 
 	return true;
