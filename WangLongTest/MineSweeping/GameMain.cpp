@@ -9,6 +9,9 @@ int WINAPI _tWinMain (HINSTANCE hInstance,
 					  LPTSTR szCmdLine, 
 					  int iCmdShow)
 {
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(szCmdLine);
+
 	CIniFile kParser;
 	
 	if (!kParser.LoadFile(DEF_CONFIG_FILE))

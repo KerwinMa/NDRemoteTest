@@ -26,6 +26,7 @@ public:
 	virtual void UnloadGame();
 	virtual bool InitialiseScene(IGameScene* pkGameScene);
 	virtual bool UninitialiseScene(IGameScene* pkGameScene);
+	virtual bool RunOrRepeaceScene(CCScene* pkScene);
 
 protected:
 

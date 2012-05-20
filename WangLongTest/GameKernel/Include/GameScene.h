@@ -11,7 +11,7 @@ class IGameScene
 {
 public:
 
-	IGameScene(){}
+	IGameScene():m_bIsInit(false){}
 	virtual ~IGameScene(){}
 
 	virtual const char* GetName() const = 0;
@@ -22,6 +22,9 @@ public:
 	virtual CCScene* GetRootScene() const = 0;
 
 protected:
+
+	INLINE_READONLY(bool,m_bIsInit,Initialised);
+
 private:
 };
 

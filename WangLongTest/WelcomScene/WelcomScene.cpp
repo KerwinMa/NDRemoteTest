@@ -2,7 +2,7 @@
 #include "WelcomScene.h"
 
 static const char* g_pszName = "WelcomeScene";
-CWelcomScene::CWelcomScene():m_pkRootScene(0){}
+CWelcomScene::CWelcomScene():m_pkRootScene(0),m_pkExitBtn(0),m_pkStartBtn(0),m_pkStartMenu(0){}
 CWelcomScene::~CWelcomScene(){}
 
 const char* CWelcomScene::GetName() const
@@ -12,6 +12,20 @@ const char* CWelcomScene::GetName() const
 
 bool CWelcomScene::Initialise()
 {
+	m_pkRootScene = CCScene::node();
+
+	if (0 == m_pkRootScene)
+	{
+		return false;
+	}
+
+	if (!InitialiseUI())
+	{
+		return false;
+	}
+
+	m_bIsInit = true;
+
 	return true;
 }
 
@@ -22,6 +36,11 @@ bool CWelcomScene::Shutdown()
 
 bool CWelcomScene::BeginScene()
 {
+	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene))
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -33,4 +52,49 @@ bool CWelcomScene::EndScene()
 bool CWelcomScene::init()
 {
 	return true;
+}
+
+bool CWelcomScene::InitialiseUI()
+{
+	m_pkStartBtn = CCMenuItemImage::itemFromNormalImage(
+		"start_common.png","start_press.png",
+		this,menu_selector(CWelcomScene::StartButtonCallback));
+
+	m_pkExitBtn = CCMenuItemImage::itemFromNormalImage(
+		"exit_common.png","exit_press.png",this,
+		menu_selector(CWelcomScene::ExitButtonCallback));
+
+	m_pkCredits = CCMenuItemImage::itemFromNormalImage(
+		"credits_common.png","credits_press.png",this,
+		menu_selector(CWelcomScene::CreditsButtonCallback));
+
+	m_pkStartBtn->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2, 360) );
+	m_pkExitBtn->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2, 300) );
+	m_pkCredits->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2, 240) );
+
+	m_pkStartMenu = CCMenu::menuWithItems(m_pkStartBtn,m_pkExitBtn,m_pkCredits,0);
+
+	m_pkStartMenu->setPosition(CCPointZero);
+
+	addChild(m_pkStartMenu,1);
+
+	return true;
+}
+
+void CWelcomScene::ExitButtonCallback( CCObject* pSender )
+{
+
+}
+
+void CWelcomScene::StartButtonCallback( CCObject* pSender )
+{
+
+}
+
+void CWelcomScene::CreditsButtonCallback( CCObject* pSender )
+{
+
 }

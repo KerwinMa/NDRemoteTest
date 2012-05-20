@@ -105,24 +105,9 @@ bool CGameManager::LoadGame( const char* pszGameName )
 		return false;
 	}
 
-	CCScene* pkRunningScene = 0;
-
-	pkRunningScene = m_pkGameDirector->getRunningScene();
-
-	if (0 == pkRunningScene)
+	if (!m_pkCurrentScene->BeginScene())
 	{
-		m_pkGameDirector->runWithScene(m_pkCurrentScene->GetRootScene());
-	}
-	else
-	{
-		if (pkRunningScene == m_pkCurrentScene->GetRootScene())
-		{
-			return false;
-		}
-		else
-		{
-			m_pkGameDirector->replaceScene(m_pkCurrentScene->GetRootScene());
-		}
+		return false;
 	}
 
 	return true;
@@ -197,6 +182,31 @@ bool CGameManager::InitialiseDirector()
 bool CGameManager::InitialiseFileEngine()
 {
 	CCFileUtils::setResourcePath("data");
+
+	return true;
+}
+
+bool CGameManager::RunOrRepeaceScene( CCScene* pkScene )
+{
+	CCScene* pkRunningScene = 0;
+
+	pkRunningScene = m_pkGameDirector->getRunningScene();
+
+	if (0 == pkRunningScene)
+	{
+		m_pkGameDirector->runWithScene(pkScene);
+	}
+	else
+	{
+		if (pkRunningScene == pkScene)
+		{
+			return false;
+		}
+		else
+		{
+			m_pkGameDirector->replaceScene(pkScene);
+		}
+	}
 
 	return true;
 }
