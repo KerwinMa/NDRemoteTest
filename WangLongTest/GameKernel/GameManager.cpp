@@ -66,6 +66,11 @@ bool CGameManager::Initialise( const char* pszGameModulePath )
 		return false;
 	}
 
+	if (!InitialiseFileEngine())
+	{
+		return false;
+	}
+
 	if (!InitialiseDirector())
 	{
 		return false;
@@ -181,7 +186,7 @@ bool CGameManager::InitialiseDirector()
 
 bool CGameManager::InitialiseFileEngine()
 {
-	CCFileUtils::setResourcePath("data");
+	CCFileUtils::setResourcePath("data\\");
 
 	return true;
 }

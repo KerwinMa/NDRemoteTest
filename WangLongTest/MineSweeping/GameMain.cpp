@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <IniFile.h>
-#include <GameManager.h>
+#include <MainGameFrame.h>
 
 using namespace GameKernel;
 
@@ -19,17 +19,11 @@ int WINAPI _tWinMain (HINSTANCE hInstance,
 		return 0;
 	}
 
-	if (!CGameManager::Create("GameScene"))
-	{
-		return false;
-	}
-
 	char* strValue = kParser.GetString("title0","subtitle0");
 
-	if (!g_pGame->LoadGame("WelcomScene"))
-	{
-		return 0;
-	}
+	CMainGameFrame kGameFrame(TEXT("Mine Sweeping"));
 
-	return 1;
+	kParser.Unload();
+
+	return CCApplication::sharedApplication().run();
 }

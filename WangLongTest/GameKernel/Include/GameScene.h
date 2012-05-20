@@ -7,7 +7,7 @@
 
 BEGIN_KERNEL
 
-class IGameScene
+class IGameScene:public CCLayer
 {
 public:
 

@@ -9,9 +9,7 @@
 
 using namespace GameKernel;
 
-class CWelcomScene:
-	public IGameScene,
-	public CCLayer
+class CWelcomScene:public IGameScene
 {
 public:
 

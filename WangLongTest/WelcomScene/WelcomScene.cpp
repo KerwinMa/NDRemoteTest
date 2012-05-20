@@ -13,6 +13,7 @@ const char* CWelcomScene::GetName() const
 bool CWelcomScene::Initialise()
 {
 	m_pkRootScene = CCScene::node();
+	m_pkRootScene->addChild(this);
 
 	if (0 == m_pkRootScene)
 	{
@@ -91,10 +92,39 @@ void CWelcomScene::ExitButtonCallback( CCObject* pSender )
 
 void CWelcomScene::StartButtonCallback( CCObject* pSender )
 {
-
+	if (!pSender)
+	{
+		return;
+	}
 }
 
 void CWelcomScene::CreditsButtonCallback( CCObject* pSender )
 {
+	if (m_pkStartMenu)
+	{
+		m_pkStartMenu->setIsVisible(false);
+	}
 
+	CCLabelTTF* pkCreditsLable = CCLabelTTF::labelWithString("Credits", "Arial", 64);
+	CCLabelTTF* pkProgramerListLable = CCLabelTTF::labelWithString("Programer:", "Consolas", 35);
+	CCLabelTTF* pkGuoHaoLable = CCLabelTTF::labelWithString("Hao Guo", "Consolas", 32);
+	CCLabelTTF* pkLiuYunLable = CCLabelTTF::labelWithString("Yun Liu", "Consolas", 32);
+	CCLabelTTF* pkYangChunlongLable = CCLabelTTF::labelWithString("Chun long Yang", "Consolas", 32);
+
+	pkCreditsLable->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2, 480) );
+	pkProgramerListLable->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2 - 100, 360) );
+	pkGuoHaoLable->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2, 280) );
+	pkLiuYunLable->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2, 240) );
+	pkYangChunlongLable->setPosition( ccp(CCDirector::sharedDirector()->
+		getWinSize().width / 2, 200) );
+
+	addChild(pkCreditsLable);
+	addChild(pkProgramerListLable);
+	addChild(pkGuoHaoLable);
+	addChild(pkLiuYunLable);
+	addChild(pkYangChunlongLable);
 }

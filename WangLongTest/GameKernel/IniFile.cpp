@@ -178,7 +178,7 @@ bool CIniFile::ParseData( StringVector kStringVector )
 
 		if (ParseTitle(strText))
 		{
-			SafeDelete(pkSubMap);
+			pkSubMap = 0;
 			pkSubMap = new SubTitleMap;
 			m_kTitleMap.insert(make_pair(strText,pkSubMap));
 			continue;
@@ -291,7 +291,15 @@ bool CIniFile::ClearStringMap( TitleMap* pkVector )
 	for (TitleMap::iterator it = pkVector->begin();
 		pkVector->end() != it;it++)
 	{
-		SubTitleMapPtr pkSub = it->second;
+		SubTitleMapPtr pkSub = 0;
+		
+		pkSub = it->second;
+		
+		if (pkSub)
+		{
+			pkSub->clear();
+		}
+
 		SafeDelete(pkSub);
 	}
 
