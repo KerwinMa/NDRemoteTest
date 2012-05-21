@@ -203,6 +203,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MineSweepingMap.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -229,7 +233,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\GameSceneDefine.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GameSceneImp.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MineSweepingMap.h"
 				>
 			</File>
 			<File
