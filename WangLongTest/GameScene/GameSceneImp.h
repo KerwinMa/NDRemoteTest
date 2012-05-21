@@ -5,9 +5,7 @@
 #ifndef GAMESCENEIMP_H
 #define GAMESCENEIMP_H
 
-#include <GameManager.h>
-
-using namespace GameKernel;
+#include "MineSweepingMap.h"
 
 class CGameSceneImp:public IGameScene
 {
