@@ -3,8 +3,21 @@
 
 static const char* g_pszName = "GameScene";
 
-CGameSceneImp::CGameSceneImp():m_pkRootScene(0),m_pkTiledMap(0),m_pkBackgroundLayer(0){setIsTouchEnabled(true);}
-CGameSceneImp::~CGameSceneImp(){}
+CGameSceneImp::CGameSceneImp():
+m_pkRootScene(0),
+m_pkTiledMap(0),
+m_pkBackgroundLayer(0),
+m_pkMineMap(0)
+{
+	setIsTouchEnabled(true);
+
+	m_pkMineMap = new CMineSweepingMap(10,10,2);
+}
+
+CGameSceneImp::~CGameSceneImp()
+{
+	SafeDelete(m_pkMineMap);
+}
 
 const char* CGameSceneImp::GetName() const
 {

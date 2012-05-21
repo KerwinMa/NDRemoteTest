@@ -5,7 +5,8 @@ CMineSweepingMap::CMineSweepingMap(unsigned int uiWidth,
 								   unsigned int uiHeight,
 								   unsigned int uiMineCount):
 m_uiMapWidth(uiWidth),
-m_uiMapHeight(uiHeight)
+m_uiMapHeight(uiHeight),
+m_uiMineCount(uiMineCount)
 {
 	if ((uiWidth * uiHeight) > uiMineCount)
 	{
@@ -15,7 +16,10 @@ m_uiMapHeight(uiHeight)
 		{
 			if (InitialiseMine())
 			{
-				m_bIsInit = true;
+				if (InitialiseNumber())
+				{
+					m_bIsInit = true;
+				}
 			}
 		}
 	}
@@ -40,12 +44,14 @@ bool CMineSweepingMap::InitliaseMap()
 
 		for (unsigned int x = 0;x < m_uiMapWidth;x++)
 		{
-			MineNode kNode;
-			memset(&kNode,0,sizeof(MineNode));
+			MineNodePtr pkNode = new MineNode;
+			memset(pkNode,0,sizeof(MineNode));
 
-			kNode.eState = St_Common;
+			pkNode->eState = St_Common;
+			pkNode->uiX = x;
+			pkNode->uiY = y;
 
-			kVector.push_back(kNode);
+			kVector.push_back(pkNode);
 		}
 
 		m_kNodeVector.push_back(kVector);
@@ -68,7 +74,7 @@ bool CMineSweepingMap::InitialiseMine()
 		unsigned int x = rand() % m_uiMapWidth;
 		unsigned int y = rand() % m_uiMapHeight;
 
-		MineNodePtr pkNode = &(m_kNodeVector[y][x]);
+		MineNodePtr pkNode = m_kNodeVector[y][x];
 
 		if (0 == pkNode)
 		{
@@ -86,4 +92,136 @@ bool CMineSweepingMap::InitialiseMine()
 	}
 
 	return true;
+}
+
+bool CMineSweepingMap::InitialiseNumber()
+{
+	if (0 == m_kMineList.size())
+	{
+		return false;
+	}
+
+	for (unsigned int i = 0;i < m_kMineList.size();i++)
+	{
+		MineNodePtr pkNode = 0;
+		pkNode = m_kMineList[i];
+
+		CheckAroundMine(pkNode);
+	}
+
+	return true;
+}
+
+bool CMineSweepingMap::CheckAroundMine( MineNode* pkNode )
+{
+	if (0 == pkNode)
+	{
+		return false;
+	}
+
+	for (unsigned int i = 0;i < 8;i++)
+	{
+		int x = 0;
+		int y = 0;
+
+		MineNodePtr pkTempNode = 0;
+
+		switch ((MineDirection)i)
+		{
+		case Dir_Left:
+			{
+				x = (int)(pkNode->uiX - 1);
+				y = (int)(pkNode->uiY);
+			}
+			break;
+		case Dir_LeftDown:
+			{
+				x = (int)(pkNode->uiX - 1);
+				y = (int)(pkNode->uiY - 1);
+			}
+			break;
+		case Dir_Down:
+			{
+				x = (int)(pkNode->uiX);
+				y = (int)(pkNode->uiY - 1);
+			}
+			break;
+		case Dir_RightDown:
+			{
+				x = (int)(pkNode->uiX + 1);
+				y = (int)(pkNode->uiY - 1);
+			}
+			break;
+		case Dir_Right:
+			{
+				x = (int)(pkNode->uiX + 1);
+				y = (int)(pkNode->uiY);
+			}
+			break;
+		case Dir_RightUp:
+			{
+				x = (int)(pkNode->uiX + 1);
+				y = (int)(pkNode->uiY + 1);
+			}
+			break;
+		case Dir_Up:
+			{
+				x = (int)(pkNode->uiX);
+				y = (int)(pkNode->uiY + 1);
+			}
+			break;
+		case Dir_LeftUp:
+			{
+				x = (int)(pkNode->uiX - 1);
+				y = (int)(pkNode->uiY + 1);
+			}
+			break;
+		default:
+			break;
+		}
+
+		if (IsRange(x,y))
+		{
+			pkTempNode = m_kNodeVector[y][x];
+
+			if (0 == pkTempNode)
+			{
+				break;
+			}
+
+			if (St_Mine != pkTempNode->eState)
+			{
+				pkTempNode->uiCount++;
+			}
+		}
+	}
+
+	return true;
+}
+
+bool CMineSweepingMap::IsRange( int x,int y )
+{
+	if (x < 0 || y < 0 || x >= (int)m_uiMapWidth || y >= (int)m_uiMapHeight)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void CMineSweepingMap::ClearDoubleMineVecotr( DoubleMineNodeVector& kDbVector )
+{
+	for (int y = 0;y < (int)kDbVector.size();y++)
+	{
+		for (int x = 0;x < (int)kDbVector[y].size();x++)
+		{
+			MineNodePtr pkNode = kDbVector[y][x];
+
+			SafeDelete(pkNode);
+		}
+
+		kDbVector[y].clear();
+	}
+
+	kDbVector.clear();
 }

@@ -30,6 +30,7 @@ protected:
 	SYNTHESIZE_READONLY(CCScene*,m_pkRootScene,RootScene);
 	INLINE_READONLY(CCTMXTiledMap*,m_pkTiledMap,TiledMap);
 	INLINE_READONLY(CCTMXLayer*,m_pkBackgroundLayer,BackgroundLayer);
+	INLINE_READONLY(CMineSweepingMap*,m_pkMineMap,MineSweepingMap);
 
 private:
 };

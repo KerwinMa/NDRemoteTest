@@ -24,6 +24,11 @@ protected:
 
 	virtual bool InitliaseMap();
 	virtual bool InitialiseMine();
+	virtual bool InitialiseNumber();
+
+	void ClearDoubleMineVecotr(DoubleMineNodeVector& kDbVector);
+	bool CheckAroundMine(MineNode* pkNode);
+	bool IsRange(int x,int y);
 
 	INLINE_READONLY(unsigned int,m_uiMapWidth,MapWidth);
 	INLINE_READONLY(unsigned int,m_uiMapHeight,MapHeight);
