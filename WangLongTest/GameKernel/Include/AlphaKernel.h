@@ -8,12 +8,14 @@
 
 BEGIN_KERNEL
 
-class CAlphaKernel
+class KERNEL_DLL CAlphaKernel
 {
 public:
 
 	CAlphaKernel(const char* pszConfigFile);
 	virtual ~CAlphaKernel();
+
+	virtual bool BeginConvert();
 
 	INLINE_CONST_READONLY(char*,m_pszConfigFile,ConfigFile);
 	INLINE_READONLY(ULONG_PTR,m_pulGDIToken,GDIToken);

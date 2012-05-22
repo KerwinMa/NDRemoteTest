@@ -37,9 +37,7 @@ bool CAlphaKernel::InitialiseGDIPlus()
 {
 	GdiplusStartupInput kGdiInput;
 
-	GdiplusStartup(&m_pulGDIToken,&kGdiInput,0);
-
-	if (Ok != m_pulGDIToken)
+	if (Ok != GdiplusStartup(&m_pulGDIToken,&kGdiInput,0))
 	{
 		return false;
 	}
@@ -75,6 +73,11 @@ bool CAlphaKernel::InitialiseConfigFile()
 	strcpy_s(m_kConfigInfo.kPath.szSaveFolder,MAX_PATH,"data");
 
 
+	return true;
+}
+
+bool CAlphaKernel::BeginConvert()
+{
 	return true;
 }
 
