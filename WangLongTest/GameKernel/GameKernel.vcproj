@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib"
+				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib gdiplus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\Lib\$(ConfigurationName)&quot;;..\..\cocos2d\cocos2dx\platform\third_party\win32\libraries"
 				GenerateDebugInformation="true"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib"
+				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib gdiplus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;..\..\Lib\$(ConfigurationName)&quot;;..\..\cocos2d\cocos2dx\platform\third_party\win32\libraries"
 				GenerateDebugInformation="true"
@@ -178,6 +178,10 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath=".\AlphaKernel.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\dllmain.cpp"
 				>
@@ -246,6 +250,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\AlphaKernel.h"
+				>
+			</File>
 			<File
 				RelativePath=".\stdafx.h"
 				>
