@@ -21,6 +21,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameScene", "GameScene\Game
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AlphaTool", "AlphaTool\AlphaTool.vcproj", "{94C39665-A05C-4B35-8EFC-2DC34FF61D1A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A1470047-4754-4474-AEF2-B29656E68089} = {A1470047-4754-4474-AEF2-B29656E68089}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game Tool", "Game Tool", "{7E49335B-BC00-48F7-A91F-4F292C398F65}"
 EndProject
