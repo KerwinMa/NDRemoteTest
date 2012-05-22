@@ -23,6 +23,8 @@ public:
 	static void Destroy();
 	static CCPoint GetTilePositionFromLocation(CCPoint kLocation,
 		CCTMXTiledMap* pkTiledMap);
+	static CCPoint GetLocationFromTilePosition(CCPoint kMapPosition,
+		CCTMXTiledMap* pkTiledMap);
 
 	virtual bool LoadGame(const char* pszGameName);
 	virtual bool UnloadGame(const char* pszGameName);

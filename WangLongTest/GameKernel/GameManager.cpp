@@ -302,30 +302,68 @@ CCPoint CGameManager::GetTilePositionFromLocation( CCPoint kLocation,
 	CCAssert(pkTiledMap,"Null map");
 
 	CCPoint kTildPosDiv;
-	CCPoint kPos;
+	CCPoint kPosition;
+	CCSize kSize;
+	CCSize kTiledSize;
 
 	float fHalfMapWidth = 0.0f;
 	float fMapHeight = 0.0f;
 	float fTileWidth = 0.0f;
 	float fTileHeight = 0.0f;
-	float fInveseTileY = 0.0f;
+	float fMapHeightDiff = 0.0f;
 	float fPositionX = 0.0f;
 	float fPositionY = 0.0f;
 
-	kPos = ccpSub(kLocation,pkTiledMap->getPosition());
+	kPosition = ccpSub(kLocation,pkTiledMap->getPosition());
+	kSize = pkTiledMap->getMapSize();
+	kTiledSize = pkTiledMap->getTileSize();
 
-	fHalfMapWidth = pkTiledMap->getMapSize().width * 0.5f;
-	fMapHeight = pkTiledMap->getMapSize().height;
-	fTileWidth = pkTiledMap->getTileSize().width;
-	fTileHeight = pkTiledMap->getTileSize().height;
+	fHalfMapWidth = kSize.width * 0.5f;
+	fMapHeight = kSize.height;
+	fTileWidth = kTiledSize.width;
+	fTileHeight = kTiledSize.height;
 
-	kTildPosDiv = CCPointMake(kPos.x / fTileWidth,kPos.y / fTileHeight);
-	fInveseTileY = fMapHeight - kTildPosDiv.y;
+	kTildPosDiv = CCPointMake(kPosition.x / fTileWidth,kPosition.y / fTileHeight);
 
-	fPositionX = static_cast<float>(static_cast<int>(fInveseTileY + kTildPosDiv.x - fHalfMapWidth));
-	fPositionY = static_cast<float>(static_cast<int>(fInveseTileY - kTildPosDiv.x + fHalfMapWidth));
+	fMapHeightDiff = fMapHeight - kTildPosDiv.y;
+
+	fPositionX = fMapHeightDiff + kTildPosDiv.x - fHalfMapWidth;
+	fPositionY = fMapHeightDiff - kTildPosDiv.x + fHalfMapWidth;
 
 	return CCPointMake(fPositionX,fPositionY);
+}
+
+CCPoint CGameManager::GetLocationFromTilePosition( CCPoint kMapPosition,
+												  CCTMXTiledMap* pkTiledMap )
+{
+	float fHalfMapWidth = 0.0f;
+	float fMapHeight = 0.0f;
+	float fTileWidth = 0.0f;
+	float fTileHeight = 0.0f;
+	float fMapHeightDiff = 0.0f;
+	float fPositionX = 0.0f;
+	float fPositionY = 0.0f;
+	float fAdd = 0.0f;
+	float fSub = 0.0f;
+
+	CCPoint kTildPosDiv;
+	CCPoint kPosition;
+	CCSize kSize;
+	CCSize kTiledSize;
+
+	kSize = pkTiledMap->getMapSize();
+	kTiledSize = pkTiledMap->getTileSize();
+
+	fAdd = kMapPosition.x + fHalfMapWidth;
+	fSub = kMapPosition.y - fHalfMapWidth;
+
+	fMapHeightDiff = (fSub + fAdd) * 0.5f;
+	kTildPosDiv.y = fMapHeight - fMapHeightDiff;
+	kTildPosDiv.x = fAdd - fMapHeightDiff;
+	kPosition.x = kTildPosDiv.x * fTileWidth;
+	kPosition.y = kTildPosDiv.y * fTileHeight;
+
+	return ccpAdd(kPosition,pkTiledMap->getPosition());
 }
 
 END_KERNEL

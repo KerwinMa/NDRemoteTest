@@ -112,5 +112,6 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 
 	kLocation = pkTouch->locationInView(pkTouch->view());
 	kConvertedLocation = CCDirector::sharedDirector()->convertToGL(kLocation);
-	kTilePosition = g_pGame->GetTilePositionFromLocation(kConvertedLocation,m_pkTiledMap);
+	kTilePosition = g_pGame->GetTilePositionFromLocation(
+		kConvertedLocation,m_pkTiledMap);
 }
