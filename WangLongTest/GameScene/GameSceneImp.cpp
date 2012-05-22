@@ -11,6 +11,9 @@ m_pkMineMap(0)
 {
 	setIsTouchEnabled(true);
 
+	m_kScrollPoint.x = -750.0f;
+	m_kScrollPoint.y = -600.0f;
+
 	m_pkMineMap = new CMineSweepingMap(10,10,2);
 }
 
@@ -92,12 +95,12 @@ bool CGameSceneImp::InitialiseMap()
 
 	addChild(m_pkTiledMap,-1);
 
-	m_pkTiledMap->setPosition(-750,-600);
+	m_pkTiledMap->setPosition(m_kScrollPoint);
 
-	CCPoint kPPP = m_pkBackgroundLayer->positionAt(ccp(7,20));
-	CCSprite* pkTemp = CCSprite::spriteWithFile("passed.PNG");
-	m_pkTiledMap->addChild(pkTemp);
-	pkTemp->setPosition(kPPP);
+// 	CCPoint kPPP = m_pkBackgroundLayer->positionAt(ccp(7,20));
+// 	CCSprite* pkTemp = CCSprite::spriteWithFile("passed.PNG");
+// 	m_pkTiledMap->addChild(pkTemp);
+// 	pkTemp->setPosition(kPPP);
 
 	return true;
 }
@@ -114,4 +117,18 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 	kConvertedLocation = CCDirector::sharedDirector()->convertToGL(kLocation);
 	kTilePosition = g_pGame->GetTilePositionFromLocation(
 		kConvertedLocation,m_pkTiledMap);
+
+	kTilePosition.x = static_cast<float>((int)(kTilePosition.x + 0.5f));
+	kTilePosition.y = static_cast<float>((int)(kTilePosition.y + 0.5f));
+
+	CCRect kRect(0.0f,0.0f,64.0f,64.0f);
+	CCSprite* pkSprite = CCSprite::spriteWithFile("passed.png",kRect);
+
+	if (pkSprite)
+	{
+		addChild(pkSprite,2);
+		CCPoint kWorld = g_pGame->GetLocationFromTilePosition(kTilePosition,m_pkTiledMap);
+
+		pkSprite->setPosition(kWorld);
+	}
 }

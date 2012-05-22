@@ -31,6 +31,7 @@ protected:
 	INLINE_READONLY(CCTMXTiledMap*,m_pkTiledMap,TiledMap);
 	INLINE_READONLY(CCTMXLayer*,m_pkBackgroundLayer,BackgroundLayer);
 	INLINE_READONLY(CMineSweepingMap*,m_pkMineMap,MineSweepingMap);
+	INLINE_READONLY(CCPoint,m_kScrollPoint,ScrollPoint);
 
 private:
 };

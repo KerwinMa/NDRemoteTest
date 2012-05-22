@@ -354,6 +354,11 @@ CCPoint CGameManager::GetLocationFromTilePosition( CCPoint kMapPosition,
 	kSize = pkTiledMap->getMapSize();
 	kTiledSize = pkTiledMap->getTileSize();
 
+	fHalfMapWidth = kSize.width * 0.5f;
+	fMapHeight = kSize.height;
+	fTileWidth = kTiledSize.width;
+	fTileHeight = kTiledSize.height;
+
 	fAdd = kMapPosition.x + fHalfMapWidth;
 	fSub = kMapPosition.y - fHalfMapWidth;
 
