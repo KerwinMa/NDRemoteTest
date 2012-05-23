@@ -97,11 +97,6 @@ bool CGameSceneImp::InitialiseMap()
 
 	m_pkTiledMap->setPosition(m_kScrollPoint);
 
-// 	CCPoint kPPP = m_pkBackgroundLayer->positionAt(ccp(7,20));
-// 	CCSprite* pkTemp = CCSprite::spriteWithFile("passed.PNG");
-// 	m_pkTiledMap->addChild(pkTemp);
-// 	pkTemp->setPosition(kPPP);
-
 	return true;
 }
 
@@ -127,7 +122,8 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 	if (pkSprite)
 	{
 		addChild(pkSprite,2);
-		CCPoint kWorld = g_pGame->GetLocationFromTilePosition(kTilePosition,m_pkTiledMap);
+		CCPoint kWorld = g_pGame->GetLocationFromTilePosition(kTilePosition,
+			m_pkTiledMap);
 
 		pkSprite->setPosition(kWorld);
 	}
