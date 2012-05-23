@@ -179,15 +179,13 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\AlphaKernel.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ConfigManager.cpp"
 				>
 			</File>
-			
-			<File
-				RelativePath=".\AlphaKernel.cpp"
-			  >
-			</File>
-			
 			<File
 				RelativePath=".\dllmain.cpp"
 				>
@@ -231,6 +229,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\ResourceManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -271,12 +273,12 @@
 			Name="Include"
 			>
 			<File
-				RelativePath=".\Include\ConfigManager.h"
+				RelativePath=".\Include\AlphaKernel.h"
 				>
 			</File>
 			<File
-				RelativePath=".\Include\AlphaKernel.h"
-			  >
+				RelativePath=".\Include\ConfigManager.h"
+				>
 			</File>
 			<File
 				RelativePath=".\Include\DynamicLibrary.h"
@@ -304,6 +306,10 @@
 			</File>
 			<File
 				RelativePath=".\Include\MainGameFrame.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Include\ResourceManager.h"
 				>
 			</File>
 		</Filter>
