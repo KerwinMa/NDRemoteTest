@@ -18,8 +18,9 @@ m_pkBatchFlag(0)
 	m_kScrollPoint.y = -600.0f;
 
 	m_kMineOffset = ccp(7,20);
+	m_kMineSize = CCSize(12,15);
 
-	m_pkMineMap = new CMineSweepingMap(10,10,2);
+	m_pkMineMap = new CMineSweepingMap((unsigned int)m_kMineSize.width,(unsigned int)m_kMineSize.height,10);
 }
 
 CGameSceneImp::~CGameSceneImp()
@@ -126,15 +127,13 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 	kTilePosition.x = static_cast<float>((int)(kTilePosition.x + 0.5f));
 	kTilePosition.y = static_cast<float>((int)(kTilePosition.y + 0.5f));
 
-	CCSprite* pkSprite = CCSprite::spriteWithFile("passed.png");
+	MineNodePtr pkNode = m_pkMineMap->GetMineNode(
+		(int)(kTilePosition.x - m_kMineOffset.x),
+		(int)(kTilePosition.y - m_kMineOffset.y));
 
-	if (pkSprite)
+	if (!ParseNode(pkNode,kTilePosition))
 	{
-		addChild(pkSprite,2);
-		CCPoint kWorld = g_pGame->GetLocationFromTilePosition(kTilePosition,
-			m_pkTiledMap);
 
-		pkSprite->setPosition(kWorld);
 	}
 }
 
@@ -148,6 +147,89 @@ bool CGameSceneImp::InitialiseSprite()
 	m_pkBatchNoMine = CCSpriteBatchNode::batchNodeWithFile("passed.png");
 
 	addChild(m_pkBatchNoMine,2);
+
+	return true;
+}
+
+bool CGameSceneImp::ParseNode( MineNodePtr pkNode,CCPoint kPosition)
+{
+	if (0 == pkNode)
+	{
+		return false;
+	}
+
+	if (0 != pkNode->pkSprite)
+	{
+		return false;
+	}
+
+	switch (pkNode->eState)
+	{
+	case St_Common:
+		{
+			if (0 < pkNode->uiCount)
+			{
+				RenderNumber(pkNode->uiCount,kPosition);
+			}
+
+			CCPoint kWorld = g_pGame->GetLocationFromTilePosition(kPosition,m_pkTiledMap);
+
+			pkNode->pkSprite = CCSprite::spriteWithFile("passed.png");
+			pkNode->pkParent = m_pkBatchNoMine;
+			pkNode->pkParent->addChild(pkNode->pkSprite);
+			pkNode->pkSprite->setPosition(kWorld);
+		}
+		break;
+	case St_Mine:
+		{
+			MessageBox(0,L"²Èµ½À×ÁË£¡",L"ERROR",MB_ICONHAND);
+		}
+		break;
+	default:
+		break;
+	}
+
+	return true;
+}
+
+bool CGameSceneImp::RenderNumber( unsigned int uiNumber,CCPoint kTilePos )
+{
+	if (1 > uiNumber || m_pkMineMap->GetMineCount() < uiNumber || 8 < uiNumber)
+	{
+		return false;
+	}
+
+	char szTemp[200] = {0};
+
+	itoa((int)uiNumber,szTemp,10);
+
+	CCLabelTTF* pkNumber = CCLabelTTF::labelWithString(szTemp, "Consolas", 35);
+	CCPoint kLocation = g_pGame->GetLocationFromTilePosition(kTilePos,m_pkTiledMap);
+	pkNumber->setPosition(kLocation);
+	
+	switch (uiNumber)
+	{
+	case 1:
+		{
+			pkNumber->setColor(ccc3(255,255,255));
+		}
+		break;
+	case 2:
+		{
+			pkNumber->setColor(ccc3(0,255,0));
+		}
+		break;
+	case 3:
+		{
+			pkNumber->setColor(ccc3(100,0,255));
+		}
+		break;
+	default:
+		pkNumber->setColor(ccc3(255,0,0));
+		break;
+	}
+
+	addChild(pkNumber,4);
 
 	return true;
 }

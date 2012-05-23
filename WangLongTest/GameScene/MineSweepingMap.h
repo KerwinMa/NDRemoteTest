@@ -19,7 +19,8 @@ public:
 	CMineSweepingMap(unsigned int uiWidth,unsigned int uiHeight,
 		unsigned int uiMineCount);
 	virtual ~CMineSweepingMap();
-
+	
+	bool IsRange(int x,int y);
 	MineNodePtr GetMineNode(int x,int y);
 
 protected:
@@ -30,7 +31,6 @@ protected:
 
 	void ClearDoubleMineVecotr(DoubleMineNodeVector& kDbVector);
 	bool CheckAroundMine(MineNode* pkNode);
-	bool IsRange(int x,int y);
 
 	INLINE_READONLY(unsigned int,m_uiMapWidth,MapWidth);
 	INLINE_READONLY(unsigned int,m_uiMapHeight,MapHeight);

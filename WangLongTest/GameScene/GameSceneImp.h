@@ -27,6 +27,8 @@ protected:
 	bool InitialiseUI();
 	bool InitialiseMap();
 	bool InitialiseSprite();
+	bool ParseNode(MineNodePtr pkNode,CCPoint kPosition);
+	bool RenderNumber(unsigned int uiNumber,CCPoint kTilePos);
 
 	SYNTHESIZE_READONLY(CCScene*,m_pkRootScene,RootScene);
 	INLINE_READONLY(CCTMXTiledMap*,m_pkTiledMap,TiledMap);
@@ -39,6 +41,7 @@ protected:
 	CCSpriteBatchNode* m_pkBatchMine;
 
 	CCPoint m_kMineOffset;
+	CCSize m_kMineSize;
 
 private:
 };

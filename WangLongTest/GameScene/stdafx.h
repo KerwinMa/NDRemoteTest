@@ -8,6 +8,9 @@
 #define GAMESCENE_DLL __declspec(dllimport)
 #endif
 
+#pragma warning(disable:4996)
+#pragma warning(disable:4251)
+
 #include <tchar.h>
 #include <cocos2d.h>
 #include <vector>
