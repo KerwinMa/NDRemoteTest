@@ -3,7 +3,7 @@
 
 BEGIN_KERNEL
 
-CAlphaKernel::CAlphaKernel(const char* pszConfigFile):
+CAlphaKernel::CAlphaKernel():
 m_pszConfigFile(0),
 m_pulGDIToken(0),
 m_bIsInit(false)
@@ -13,16 +13,11 @@ m_bIsInit(false)
 	memset(&m_kConfigInfo,0,sizeof(ConfigInfo));
 	memset(m_pszConfigFile,0,sizeof(char) * MAX_PATH);
 
-	if (pszConfigFile && *pszConfigFile)
+	if (InitialiseConfigFile())
 	{
-		strcpy_s(m_pszConfigFile,MAX_PATH,pszConfigFile);
-
-		if (InitialiseConfigFile())
+		if (InitialiseGDIPlus())
 		{
-			if (InitialiseGDIPlus())
-			{
-				m_bIsInit = true;
-			}
+			m_bIsInit = true;
 		}
 	}
 }
@@ -47,7 +42,7 @@ bool CAlphaKernel::InitialiseGDIPlus()
 
 bool CAlphaKernel::InitialiseConfigFile()
 {
-	if (0 == m_pszConfigFile || !*m_pszConfigFile)
+	if (0 == m_pszConfigFile)
 	{
 		return false;
 	}
@@ -72,7 +67,6 @@ bool CAlphaKernel::InitialiseConfigFile()
 	strcpy_s(m_kConfigInfo.kPath.szPathFolder,MAX_PATH,"data");
 	strcpy_s(m_kConfigInfo.kPath.szSaveFolder,MAX_PATH,"data");
 
-
 	return true;
 }
 
@@ -88,6 +82,9 @@ bool CAlphaKernel::BeginConvert(const wchar_t* pszFilename,
 	Bitmap* pkImage = Bitmap::FromFile(pszFilename);
 	unsigned int uiWidth = 0;
 	unsigned int uiHeight = 0;
+	CLSID kClsid;
+
+	memset(&kClsid,0,sizeof(CLSID));
 
 	if (0 == pkImage)
 	{
@@ -117,6 +114,10 @@ bool CAlphaKernel::BeginConvert(const wchar_t* pszFilename,
 			}
 		}
 	}
+
+	GetEncoderClsid(L"image/png",&kClsid);
+
+	pkImage->Save(pszOutFilename,&kClsid,0);
 
 	return true;
 }

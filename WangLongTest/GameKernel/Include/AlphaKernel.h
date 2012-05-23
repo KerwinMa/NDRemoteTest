@@ -12,10 +12,11 @@ class KERNEL_DLL CAlphaKernel
 {
 public:
 
-	CAlphaKernel(const char* pszConfigFile);
+	CAlphaKernel();
 	virtual ~CAlphaKernel();
 
-	virtual bool BeginConvert(const wchar_t* pszFilename,const wchar_t* pszOutFilename);
+	virtual bool BeginConvert(const wchar_t* pszFilename,
+		const wchar_t* pszOutFilename);
 
 	INLINE_CONST_READONLY(char*,m_pszConfigFile,ConfigFile);
 	INLINE_READONLY(ULONG_PTR,m_pulGDIToken,GDIToken);
