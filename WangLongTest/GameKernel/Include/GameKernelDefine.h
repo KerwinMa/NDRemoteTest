@@ -116,4 +116,24 @@ typedef enum
 	CON_XML
 }ConfigType;
 
+typedef struct __tagPathInfo
+{
+	char szPathFolder[MAX_PATH];
+	char szSaveFolder[MAX_PATH];
+}PathInfo,*PathInfoPtr;
+
+typedef struct __tagColorInfo
+{
+	unsigned char btAlphaRed;
+	unsigned char btAlphaGreen;
+	unsigned char btAlphaBlue;
+	unsigned char btAlphaValue;
+}ColorInfo,*ColorInfoPtr;
+
+typedef struct __tagConfigInfo
+{
+	PathInfo kPath;
+	ColorInfo kColor;
+}ConfigInfo,*ConfigInfoPtr;
+
 #endif

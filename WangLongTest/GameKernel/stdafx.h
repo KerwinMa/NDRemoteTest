@@ -4,10 +4,14 @@
 //
 
 #pragma once
+#pragma warning(disable:4996)
+#pragma warning(disable:4251)
 
-#define WIN32_LEAN_AND_MEAN             // 从 Windows 头中排除极少使用的资料
+//#define WIN32_LEAN_AND_MEAN             // 从 Windows 头中排除极少使用的资料
 // Windows 头文件:
 
+#include <windows.h>
+#include <gdiplus.h>
 #include <vector>
 #include <cocos2d.h>
 #include <map>
@@ -54,3 +58,4 @@ using boost::shared_ptr;
 using namespace stdext;
 using namespace std;
 using namespace cocos2d;
+using namespace Gdiplus;
