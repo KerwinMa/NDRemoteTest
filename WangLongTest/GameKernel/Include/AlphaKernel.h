@@ -15,7 +15,7 @@ public:
 	CAlphaKernel(const char* pszConfigFile);
 	virtual ~CAlphaKernel();
 
-	virtual bool BeginConvert();
+	virtual bool BeginConvert(const wchar_t* pszFilename,const wchar_t* pszOutFilename);
 
 	INLINE_CONST_READONLY(char*,m_pszConfigFile,ConfigFile);
 	INLINE_READONLY(ULONG_PTR,m_pulGDIToken,GDIToken);
@@ -26,6 +26,7 @@ protected:
 
 	virtual bool InitialiseConfigFile();
 	virtual bool InitialiseGDIPlus();
+	int GetEncoderClsid(const wchar_t* pszFormat,CLSID* pClsid);
 
 private:
 };

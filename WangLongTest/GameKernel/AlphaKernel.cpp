@@ -76,9 +76,86 @@ bool CAlphaKernel::InitialiseConfigFile()
 	return true;
 }
 
-bool CAlphaKernel::BeginConvert()
+bool CAlphaKernel::BeginConvert(const wchar_t* pszFilename,
+								const wchar_t* pszOutFilename)
 {
+	if (0 == pszFilename || !*pszFilename ||
+		0 == pszOutFilename || !*pszOutFilename)
+	{
+		return false;
+	}
+
+	Bitmap* pkImage = Bitmap::FromFile(pszFilename);
+	unsigned int uiWidth = 0;
+	unsigned int uiHeight = 0;
+
+	if (0 == pkImage)
+	{
+		return false;
+	}
+
+	uiWidth = pkImage->GetWidth();
+	uiHeight = pkImage->GetHeight();
+
+	for (unsigned int y = 0;y < uiHeight;y++)
+	{
+		for (unsigned int x = 0;x < uiWidth;x++)
+		{
+			Color kColor;
+			pkImage->GetPixel(x,y,&kColor);
+
+			if (kColor.GetR() == m_kConfigInfo.kColor.btAlphaRed &&
+				kColor.GetG() == m_kConfigInfo.kColor.btAlphaGreen &&
+				kColor.GetB() == m_kConfigInfo.kColor.btAlphaBlue)
+			{
+				kColor = Color(m_kConfigInfo.kColor.btAlphaValue,
+					m_kConfigInfo.kColor.btAlphaRed,
+					m_kConfigInfo.kColor.btAlphaGreen,
+					m_kConfigInfo.kColor.btAlphaBlue);
+
+				pkImage->SetPixel(x,y,kColor);
+			}
+		}
+	}
+
 	return true;
+}
+
+int CAlphaKernel::GetEncoderClsid( const wchar_t* pszFormat,
+								  CLSID* pClsid )
+{
+	unsigned int uiNum = 0;
+	unsigned int uiSize = 0;
+	ImageCodecInfo* pkImageInfo = 0;
+
+	GetImageEncodersSize(&uiNum,&uiSize);
+
+	if (0 == uiSize)
+	{
+		return -1;
+	}
+
+	pkImageInfo = (ImageCodecInfo*)(malloc(uiSize));
+
+	if (0 == pkImageInfo)
+	{
+		return -1;
+	}
+
+	GetImageEncoders(uiNum,uiSize,pkImageInfo);
+
+	for (unsigned int uiIndex = 0;uiIndex < uiNum;uiIndex++)
+	{
+		if (0 == wcscmp(pkImageInfo[uiIndex].MimeType,pszFormat))
+		{
+			*pClsid = pkImageInfo[uiIndex].Clsid;
+			SafeDelete(pkImageInfo);
+
+			return uiIndex;
+		}
+	}
+
+	return -1;
 }
 
 END_KERNEL
