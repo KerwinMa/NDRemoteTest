@@ -225,3 +225,13 @@ void CMineSweepingMap::ClearDoubleMineVecotr( DoubleMineNodeVector& kDbVector )
 
 	kDbVector.clear();
 }
+
+MineNodePtr CMineSweepingMap::GetMineNode( int x,int y )
+{	
+	if (!IsRange(x,y))
+	{
+		return 0;
+	}
+
+	return m_kNodeVector[y][x];
+}

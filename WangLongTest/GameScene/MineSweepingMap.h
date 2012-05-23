@@ -20,6 +20,8 @@ public:
 		unsigned int uiMineCount);
 	virtual ~CMineSweepingMap();
 
+	MineNodePtr GetMineNode(int x,int y);
+
 protected:
 
 	virtual bool InitliaseMap();

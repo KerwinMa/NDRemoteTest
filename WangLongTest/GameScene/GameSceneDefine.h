@@ -27,6 +27,9 @@ typedef struct __tagMineNode
 {
 	NodeState eState;
 
+	CCSprite* pkSprite;
+	CCSpriteBatchNode* pkParent;
+
 	unsigned int uiX;
 	unsigned int uiY;
 	unsigned int uiCount;

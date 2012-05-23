@@ -229,10 +229,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\ResourceManager.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -306,10 +302,6 @@
 			</File>
 			<File
 				RelativePath=".\Include\MainGameFrame.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Include\ResourceManager.h"
 				>
 			</File>
 		</Filter>
