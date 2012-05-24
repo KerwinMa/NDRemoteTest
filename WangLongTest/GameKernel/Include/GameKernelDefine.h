@@ -29,13 +29,13 @@ public: virtual const varType& Get##funName(void);
 
 #define PROPERTY(varType, varName, funName)\
 protected: varType varName;\
-public: virtual varType get##funName(void);\
-public: virtual void set##funName(varType var);
+public: virtual varType Get##funName(void);\
+public: virtual void Set##funName(varType var);
 
 #define PROPERTY_PASS_BY_REF(varType, varName, funName)\
 protected: varType varName;\
-public: virtual const varType& get##funName(void);\
-public: virtual void set##funName(const varType& var);
+public: virtual const varType& Get##funName(void);\
+public: virtual void Set##funName(const varType& var);
 
 #define SYNTHESIZE_READONLY(varType, varName, funName)\
 protected: varType varName;\
@@ -52,6 +52,11 @@ public: inline varType Get##funName(void) { return varName; }
 #define INLINE_READONLY(varType, varName, funName)\
 protected: varType varName;\
 public: inline varType Get##funName(void) const { return varName; }
+
+#define INLINE_WRITEANDREAD(varType, varName, funName)\
+protected: varType varName;\
+public: inline varType Get##funName(void) const { return varName; }\
+public: inline void Set##funName(varType var) {varName = var;}
 
 #define INLINE_CONST_READONLY(varType, varName, funName)\
 protected: varType varName;\

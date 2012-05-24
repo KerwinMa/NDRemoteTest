@@ -5,7 +5,7 @@
 #ifndef GAMESCENEIMP_H
 #define GAMESCENEIMP_H
 
-#include "MineSweepingMap.h"
+#include "DragSprite.h"
 
 class CGameSceneImp:public IGameScene
 {
@@ -48,7 +48,7 @@ protected:
 
 	CCMenuItemSprite* m_pkMenuFlag;
 	CCSprite* m_pkBackgroundUI;
-	CCSprite* m_pkFollowMouseFlag;
+	CDragSprite* m_pkFollowMouseFlag;
 
 	CCMenu* m_pkMenu;
 

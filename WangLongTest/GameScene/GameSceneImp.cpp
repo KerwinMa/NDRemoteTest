@@ -96,28 +96,13 @@ bool CGameSceneImp::InitialiseUI()
 		return false;
 	}
 
-	CCSprite* pkFlagSprite_Common = CCSprite::spriteWithFile("RedFlag.png");
-	CCSprite* pkFlagSprite_Selected = CCSprite::spriteWithFile("RedFlag_Selected.png");
 	m_pkBackgroundUI = CCSprite::spriteWithFile("jiemian.png");
-
-	if (0 == pkFlagSprite_Common || 0 == pkFlagSprite_Selected)
-	{
-		return false;
-	}
-
-	m_pkMenuFlag = CCMenuItemSprite::itemFromNormalSprite(
-		pkFlagSprite_Common,pkFlagSprite_Selected,this,
-		menu_selector(CGameSceneImp::FlagButtonCallback));
-
 	m_pkBackgroundUI->setPosition(ccp(400,75));
-	m_pkMenuFlag->setPosition(80,50);
-	m_pkMenuFlag->setScale(3.0f);
 
-	m_pkMenu = CCMenu::menuWithItem(m_pkMenuFlag);
-	m_pkMenu->setPosition(ccp(0,0));
+	m_pkFollowMouseFlag->setScale(3.0f);
+	m_pkFollowMouseFlag->setPosition(ccp(30,50));
 
 	addChild(m_pkBackgroundUI,1);
-	addChild(m_pkMenu,2);
 
 	return true;
 }
@@ -180,10 +165,13 @@ bool CGameSceneImp::InitialiseSprite()
 
 	m_pkBatchNoMine = CCSpriteBatchNode::batchNodeWithFile("passed.png");
 	m_pkBatchFlag = CCSpriteBatchNode::batchNodeWithFile("RedFlag.png");
+	CCRect kFlagRect(0,0,64,64);
 
-	m_pkFollowMouseFlag = CCSprite::spriteWithFile("RedFlag.png");
+	m_pkFollowMouseFlag = new CDragSprite(3.0f);
+	m_pkFollowMouseFlag->initWithFile("RedFlag.png");
 
-	addChild(m_pkFollowMouseFlag,4);
+	m_pkBatchFlag->addChild(m_pkFollowMouseFlag);
+
 	addChild(m_pkBatchFlag,3);
 	addChild(m_pkBatchNoMine,2);
 
