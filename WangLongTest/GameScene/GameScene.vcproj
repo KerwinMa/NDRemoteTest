@@ -199,6 +199,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\DragSprite.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameSceneImp.cpp"
 				>
 			</File>
@@ -232,6 +236,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\DragSprite.h"
+				>
+			</File>
 			<File
 				RelativePath=".\GameSceneDefine.h"
 				>

@@ -10,7 +10,12 @@ m_pkBackgroundLayer(0),
 m_pkMineMap(0),
 m_pkBatchMine(0),
 m_pkBatchNoMine(0),
-m_pkBatchFlag(0)
+m_pkBatchFlag(0),
+m_pkMenuFlag(0),
+m_pkMenu(0),
+m_bIsFlaged(false),
+m_pkFollowMouseFlag(0),
+m_pkBackgroundUI(0)
 {
 	setIsTouchEnabled(true);
 
@@ -18,7 +23,7 @@ m_pkBatchFlag(0)
 	m_kScrollPoint.y = -600.0f;
 
 	m_kMineOffset = ccp(7,20);
-	m_kMineSize = CCSize(11,14);
+	m_kMineSize = CCSize(11,15);
 
 	m_pkMineMap = new CMineSweepingMap((unsigned int)m_kMineSize.width,
 		(unsigned int)m_kMineSize.height,20);
@@ -44,17 +49,17 @@ bool CGameSceneImp::Initialise()
 		return false;
 	}
 
-	if (!InitialiseUI())
-	{
-		return false;
-	}
-
 	if (!InitialiseMap())
 	{
 		return false;
 	}
 
 	if (!InitialiseSprite())
+	{
+		return false;
+	}
+
+	if (!InitialiseUI())
 	{
 		return false;
 	}
@@ -86,6 +91,34 @@ bool CGameSceneImp::EndScene()
 
 bool CGameSceneImp::InitialiseUI()
 {
+	if (m_bIsInit)
+	{
+		return false;
+	}
+
+	CCSprite* pkFlagSprite_Common = CCSprite::spriteWithFile("RedFlag.png");
+	CCSprite* pkFlagSprite_Selected = CCSprite::spriteWithFile("RedFlag_Selected.png");
+	m_pkBackgroundUI = CCSprite::spriteWithFile("jiemian.png");
+
+	if (0 == pkFlagSprite_Common || 0 == pkFlagSprite_Selected)
+	{
+		return false;
+	}
+
+	m_pkMenuFlag = CCMenuItemSprite::itemFromNormalSprite(
+		pkFlagSprite_Common,pkFlagSprite_Selected,this,
+		menu_selector(CGameSceneImp::FlagButtonCallback));
+
+	m_pkBackgroundUI->setPosition(ccp(400,75));
+	m_pkMenuFlag->setPosition(80,50);
+	m_pkMenuFlag->setScale(3.0f);
+
+	m_pkMenu = CCMenu::menuWithItem(m_pkMenuFlag);
+	m_pkMenu->setPosition(ccp(0,0));
+
+	addChild(m_pkBackgroundUI,1);
+	addChild(m_pkMenu,2);
+
 	return true;
 }
 
@@ -134,7 +167,7 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 
 	if (!ParseNode(pkNode))
 	{
-
+		return;
 	}
 }
 
@@ -146,7 +179,12 @@ bool CGameSceneImp::InitialiseSprite()
 	}
 
 	m_pkBatchNoMine = CCSpriteBatchNode::batchNodeWithFile("passed.png");
+	m_pkBatchFlag = CCSpriteBatchNode::batchNodeWithFile("RedFlag.png");
 
+	m_pkFollowMouseFlag = CCSprite::spriteWithFile("RedFlag.png");
+
+	addChild(m_pkFollowMouseFlag,4);
+	addChild(m_pkBatchFlag,3);
 	addChild(m_pkBatchNoMine,2);
 
 	return true;
@@ -317,4 +355,37 @@ bool CGameSceneImp::RenderNumber( unsigned int uiNumber,CCPoint kTilePos )
 	addChild(pkNumber,4);
 
 	return true;
+}
+
+void CGameSceneImp::FlagButtonCallback( CCObject* pSender )
+{
+	if (!m_bIsFlaged)
+	{
+		m_bIsFlaged = true;
+	}
+}
+
+void CGameSceneImp::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
+{
+	if (m_bIsFlaged)
+	{
+		CCPoint kLocation;
+		CCPoint kConvertedLocation;
+		CCSetIterator it = pTouches->begin();
+		CCTouch* pkTouch = (CCTouch*)(*it);
+
+		kLocation = pkTouch->locationInView(pkTouch->view());
+		kConvertedLocation = CCDirector::sharedDirector()->convertToGL(kLocation);
+
+		if (m_pkFollowMouseFlag)
+		{
+			m_pkFollowMouseFlag->setPosition(kConvertedLocation);
+		}
+	}
+}
+
+void CGameSceneImp::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
+{
+	CCSetIterator it = pTouches->begin();
+	CCTouch* pkTouch = (CCTouch*)(*it);
 }
