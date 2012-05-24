@@ -27,7 +27,7 @@ protected:
 	bool InitialiseUI();
 	bool InitialiseMap();
 	bool InitialiseSprite();
-	bool ParseNode(MineNodePtr pkNode,CCPoint kPosition);
+	bool ParseNode(MineNodePtr pkNode);
 	bool RenderNumber(unsigned int uiNumber,CCPoint kTilePos);
 
 	SYNTHESIZE_READONLY(CCScene*,m_pkRootScene,RootScene);

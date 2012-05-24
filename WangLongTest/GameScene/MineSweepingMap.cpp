@@ -201,7 +201,8 @@ bool CMineSweepingMap::CheckAroundMine( MineNode* pkNode )
 
 bool CMineSweepingMap::IsRange( int x,int y )
 {
-	if (x < 0 || y < 0 || x >= (int)m_uiMapWidth || y >= (int)m_uiMapHeight)
+	if (x < 0 || y < 0 || x >= (int)m_uiMapWidth ||
+		y >= (int)m_uiMapHeight)
 	{
 		return false;
 	}

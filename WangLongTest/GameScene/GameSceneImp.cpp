@@ -18,9 +18,10 @@ m_pkBatchFlag(0)
 	m_kScrollPoint.y = -600.0f;
 
 	m_kMineOffset = ccp(7,20);
-	m_kMineSize = CCSize(12,15);
+	m_kMineSize = CCSize(11,14);
 
-	m_pkMineMap = new CMineSweepingMap((unsigned int)m_kMineSize.width,(unsigned int)m_kMineSize.height,10);
+	m_pkMineMap = new CMineSweepingMap((unsigned int)m_kMineSize.width,
+		(unsigned int)m_kMineSize.height,20);
 }
 
 CGameSceneImp::~CGameSceneImp()
@@ -131,7 +132,7 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 		(int)(kTilePosition.x - m_kMineOffset.x),
 		(int)(kTilePosition.y - m_kMineOffset.y));
 
-	if (!ParseNode(pkNode,kTilePosition))
+	if (!ParseNode(pkNode))
 	{
 
 	}
@@ -151,12 +152,14 @@ bool CGameSceneImp::InitialiseSprite()
 	return true;
 }
 
-bool CGameSceneImp::ParseNode( MineNodePtr pkNode,CCPoint kPosition)
+bool CGameSceneImp::ParseNode( MineNodePtr pkNode)
 {
 	if (0 == pkNode)
 	{
 		return false;
 	}
+
+	CCPoint kPosition = ccpAdd(m_kMineOffset,ccp(pkNode->uiX,pkNode->uiY));
 
 	if (0 != pkNode->pkSprite)
 	{
@@ -167,9 +170,13 @@ bool CGameSceneImp::ParseNode( MineNodePtr pkNode,CCPoint kPosition)
 	{
 	case St_Common:
 		{
+			MineNodePtr pkTempNode = 0;
+			bool bCheckContinue = true;
+
 			if (0 < pkNode->uiCount)
 			{
 				RenderNumber(pkNode->uiCount,kPosition);
+				bCheckContinue = false;
 			}
 
 			CCPoint kWorld = g_pGame->GetLocationFromTilePosition(kPosition,m_pkTiledMap);
@@ -178,6 +185,82 @@ bool CGameSceneImp::ParseNode( MineNodePtr pkNode,CCPoint kPosition)
 			pkNode->pkParent = m_pkBatchNoMine;
 			pkNode->pkParent->addChild(pkNode->pkSprite);
 			pkNode->pkSprite->setPosition(kWorld);
+
+			if (!bCheckContinue)
+			{
+				return true;
+			}
+
+			for (unsigned int i = 0;i < 8;i++)
+			{
+				int x = 0;
+				int y = 0;
+
+				MineNodePtr pkTempNode = 0;
+
+				switch ((MineDirection)i)
+				{
+				case Dir_Left:
+					{
+						x = (int)(pkNode->uiX - 1);
+						y = (int)(pkNode->uiY);
+					}
+					break;
+				case Dir_LeftDown:
+					{
+						x = (int)(pkNode->uiX - 1);
+						y = (int)(pkNode->uiY - 1);
+					}
+					break;
+				case Dir_Down:
+					{
+						x = (int)(pkNode->uiX);
+						y = (int)(pkNode->uiY - 1);
+					}
+					break;
+				case Dir_RightDown:
+					{
+						x = (int)(pkNode->uiX + 1);
+						y = (int)(pkNode->uiY - 1);
+					}
+					break;
+				case Dir_Right:
+					{
+						x = (int)(pkNode->uiX + 1);
+						y = (int)(pkNode->uiY);
+					}
+					break;
+				case Dir_RightUp:
+					{
+						x = (int)(pkNode->uiX + 1);
+						y = (int)(pkNode->uiY + 1);
+					}
+					break;
+				case Dir_Up:
+					{
+						x = (int)(pkNode->uiX);
+						y = (int)(pkNode->uiY + 1);
+					}
+					break;
+				case Dir_LeftUp:
+					{
+						x = (int)(pkNode->uiX - 1);
+						y = (int)(pkNode->uiY + 1);
+					}
+					break;
+				default:
+					break;
+				}
+
+				pkTempNode = m_pkMineMap->GetMineNode(x,y);
+
+				if (0 == pkTempNode)
+				{
+					continue;
+				}
+
+				ParseNode(pkTempNode);
+			}
 		}
 		break;
 	case St_Mine:
@@ -203,9 +286,11 @@ bool CGameSceneImp::RenderNumber( unsigned int uiNumber,CCPoint kTilePos )
 
 	itoa((int)uiNumber,szTemp,10);
 
-	CCLabelTTF* pkNumber = CCLabelTTF::labelWithString(szTemp, "Consolas", 35);
+	CCLabelTTF* pkNumber = CCLabelTTF::labelWithString(szTemp, "Consolas", 25);
 	CCPoint kLocation = g_pGame->GetLocationFromTilePosition(kTilePos,m_pkTiledMap);
-	pkNumber->setPosition(kLocation);
+	CCPoint kStringPosition = ccpAdd(ccp(0,7),kLocation);
+
+	pkNumber->setPosition(kStringPosition);
 	
 	switch (uiNumber)
 	{
