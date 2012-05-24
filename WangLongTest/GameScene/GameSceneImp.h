@@ -19,6 +19,7 @@ public:
 	virtual bool Shutdown();
 	virtual bool BeginScene();
 	virtual bool EndScene();
+	virtual void Update( ccTime fTime );
 
 	virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
 	virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
@@ -31,14 +32,17 @@ protected:
 	bool InitialiseSprite();
 	bool ParseNode(MineNodePtr pkNode);
 	bool RenderNumber(unsigned int uiNumber,CCPoint kTilePos);
+	MineNodePtr GetMineNodeFromTilePosition(CCPoint kTilePosition);
 
-	virtual void FlagButtonCallback(CCObject* pSender);
+	virtual void RestartButtonCallback(CCObject* pSender);
 
 	SYNTHESIZE_READONLY(CCScene*,m_pkRootScene,RootScene);
 	INLINE_READONLY(CCTMXTiledMap*,m_pkTiledMap,TiledMap);
 	INLINE_READONLY(CCTMXLayer*,m_pkBackgroundLayer,BackgroundLayer);
 	INLINE_READONLY(CMineSweepingMap*,m_pkMineMap,MineSweepingMap);
 	INLINE_READONLY(CCPoint,m_kScrollPoint,ScrollPoint);
+	INLINE_READONLY(bool,m_bIsWin,Win);
+	INLINE_READONLY(unsigned int,m_uiTimeCost,TimeCost);
 
 	bool m_bIsFlaged;
 
@@ -46,7 +50,9 @@ protected:
 	CCSpriteBatchNode* m_pkBatchFlag;
 	CCSpriteBatchNode* m_pkBatchMine;
 
-	CCMenuItemSprite* m_pkMenuFlag;
+	CCLabelTTF* m_pkTimeLabel;
+
+	CCMenuItemSprite* m_pkRestartBtn;
 	CCSprite* m_pkBackgroundUI;
 	CDragSprite* m_pkFollowMouseFlag;
 

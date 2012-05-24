@@ -30,7 +30,9 @@ public:
 protected:
 
 	INLINE_READONLY(CCPoint,m_kInitPosition,InitPosition);
+	INLINE_READONLY(CCPoint,m_kLastRelease,LastReleasePosition);
 	INLINE_WRITEANDREAD(float,m_fInitScale,InitScale);
+	INLINE_WRITEANDREAD(bool,m_bIsReleased,Released);
 
 private:
 };

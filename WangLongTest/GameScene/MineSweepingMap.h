@@ -20,8 +20,10 @@ public:
 		unsigned int uiMineCount);
 	virtual ~CMineSweepingMap();
 	
+	bool PassedAddAndCheckWin();
 	bool IsRange(int x,int y);
 	MineNodePtr GetMineNode(int x,int y);
+	MineNodePtr GetMineNode(CCPoint kPosition);
 
 protected:
 
@@ -32,6 +34,8 @@ protected:
 	void ClearDoubleMineVecotr(DoubleMineNodeVector& kDbVector);
 	bool CheckAroundMine(MineNode* pkNode);
 
+	INLINE_WRITEANDREAD(unsigned int,m_uiPassedNode,PassedNode);
+	INLINE_READONLY(unsigned int,m_uiTotalNodeCount,TotalNodeCount);
 	INLINE_READONLY(unsigned int,m_uiMapWidth,MapWidth);
 	INLINE_READONLY(unsigned int,m_uiMapHeight,MapHeight);
 	INLINE_READONLY(unsigned int,m_uiMineCount,MineCount);

@@ -2,7 +2,8 @@
 #include "DragSprite.h"
 
 CDragSprite::CDragSprite(float fDefScale):
-m_fInitScale(fDefScale)
+m_fInitScale(fDefScale),
+m_bIsReleased(false)
 {
 	CC_ASSERT(fDefScale > 0.00001f);
 	m_fInitScale = fDefScale;
@@ -40,8 +41,11 @@ void CDragSprite::ccTouchMoved( CCTouch *pTouch, CCEvent *pEvent )
 
 void CDragSprite::ccTouchEnded( CCTouch *pTouch, CCEvent *pEvent )
 {
+	m_kLastRelease = getPosition();
+
 	setScale(m_fInitScale);
 	setPosition(m_kInitPosition);
+	m_bIsReleased = true;
 }
 
 void CDragSprite::OnEnter()

@@ -11,11 +11,14 @@ m_pkMineMap(0),
 m_pkBatchMine(0),
 m_pkBatchNoMine(0),
 m_pkBatchFlag(0),
-m_pkMenuFlag(0),
+m_pkRestartBtn(0),
 m_pkMenu(0),
 m_bIsFlaged(false),
 m_pkFollowMouseFlag(0),
-m_pkBackgroundUI(0)
+m_pkBackgroundUI(0),
+m_bIsWin(false),
+m_pkTimeLabel(0),
+m_uiTimeCost(0)
 {
 	setIsTouchEnabled(true);
 
@@ -23,10 +26,10 @@ m_pkBackgroundUI(0)
 	m_kScrollPoint.y = -600.0f;
 
 	m_kMineOffset = ccp(7,20);
-	m_kMineSize = CCSize(11,15);
+	m_kMineSize = CCSize(12,14);
 
 	m_pkMineMap = new CMineSweepingMap((unsigned int)m_kMineSize.width,
-		(unsigned int)m_kMineSize.height,20);
+		(unsigned int)m_kMineSize.height,10);
 }
 
 CGameSceneImp::~CGameSceneImp()
@@ -48,6 +51,8 @@ bool CGameSceneImp::Initialise()
 	{
 		return false;
 	}
+
+	schedule(schedule_selector(CGameSceneImp::Update));
 
 	if (!InitialiseMap())
 	{
@@ -71,6 +76,8 @@ bool CGameSceneImp::Initialise()
 
 bool CGameSceneImp::Shutdown()
 {
+	g_pGame->StopScene(m_pkRootScene);
+
 	return true;
 }
 
@@ -86,6 +93,8 @@ bool CGameSceneImp::BeginScene()
 
 bool CGameSceneImp::EndScene()
 {
+	removeAllChildrenWithCleanup(true);
+
 	return true;
 }
 
@@ -99,10 +108,34 @@ bool CGameSceneImp::InitialiseUI()
 	m_pkBackgroundUI = CCSprite::spriteWithFile("jiemian.png");
 	m_pkBackgroundUI->setPosition(ccp(400,75));
 
-	m_pkFollowMouseFlag->setScale(3.0f);
-	m_pkFollowMouseFlag->setPosition(ccp(30,50));
+	m_pkTimeLabel = CCLabelTTF::labelWithString("0", "Arial", 64);
 
+	if (0 == m_pkTimeLabel)
+	{
+		return false;
+	}
+
+	m_pkFollowMouseFlag->setScale(3.0f);
+	m_pkFollowMouseFlag->setPosition(ccp(75,50));
+
+	m_pkRestartBtn = CCMenuItemImage::itemFromNormalImage(
+		"button\\restart_common.png","button\\restart_pressed.png",
+		this,menu_selector(CGameSceneImp::RestartButtonCallback));
+
+	if (0 == m_pkRestartBtn)
+	{
+		return false;
+	}
+
+	m_pkMenu = CCMenu::menuWithItem(m_pkRestartBtn);
+
+	addChild(m_pkMenu,2);
 	addChild(m_pkBackgroundUI,1);
+
+	m_pkRestartBtn->setPosition(400,75);
+	m_pkRestartBtn->setScale(0.2f);
+
+	m_pkMenu->setPosition(ccp(0,0));
 
 	return true;
 }
@@ -137,18 +170,19 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 	CCPoint kConvertedLocation;
 	CCSetIterator it = pTouches->begin();
 	CCTouch* pkTouch = (CCTouch*)(*it);
+	MineNodePtr pkNode = 0;
 
 	kLocation = pkTouch->locationInView(pkTouch->view());
 	kConvertedLocation = CCDirector::sharedDirector()->convertToGL(kLocation);
 	kTilePosition = g_pGame->GetTilePositionFromLocation(
 		kConvertedLocation,m_pkTiledMap);
 
-	kTilePosition.x = static_cast<float>((int)(kTilePosition.x + 0.5f));
-	kTilePosition.y = static_cast<float>((int)(kTilePosition.y + 0.5f));
+	pkNode = GetMineNodeFromTilePosition(kTilePosition);
 
-	MineNodePtr pkNode = m_pkMineMap->GetMineNode(
-		(int)(kTilePosition.x - m_kMineOffset.x),
-		(int)(kTilePosition.y - m_kMineOffset.y));
+	if (0 == pkNode)
+	{
+		return;
+	}
 
 	if (!ParseNode(pkNode))
 	{
@@ -211,6 +245,11 @@ bool CGameSceneImp::ParseNode( MineNodePtr pkNode)
 			pkNode->pkParent = m_pkBatchNoMine;
 			pkNode->pkParent->addChild(pkNode->pkSprite);
 			pkNode->pkSprite->setPosition(kWorld);
+
+			if (m_pkMineMap->PassedAddAndCheckWin())
+			{
+				m_bIsWin = true;
+			}
 
 			if (!bCheckContinue)
 			{
@@ -345,12 +384,9 @@ bool CGameSceneImp::RenderNumber( unsigned int uiNumber,CCPoint kTilePos )
 	return true;
 }
 
-void CGameSceneImp::FlagButtonCallback( CCObject* pSender )
+void CGameSceneImp::RestartButtonCallback( CCObject* pSender )
 {
-	if (!m_bIsFlaged)
-	{
-		m_bIsFlaged = true;
-	}
+	g_pGame->UnloadGame(g_pszName);
 }
 
 void CGameSceneImp::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -376,4 +412,68 @@ void CGameSceneImp::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
 {
 	CCSetIterator it = pTouches->begin();
 	CCTouch* pkTouch = (CCTouch*)(*it);
+}
+
+void CGameSceneImp::Update( ccTime fTime )
+{
+	if (m_bIsWin)
+	{
+		MessageBox(0,TEXT("你赢了！人类已经无法阻止你了！"),TEXT("WINNER~~~"),MB_OK);
+		m_bIsWin = false;
+	}
+
+	if (m_pkFollowMouseFlag->GetReleased())
+	{
+		m_pkFollowMouseFlag->SetReleased(false);
+
+		CCPoint kPoint;
+		CCPoint kTilePosition;
+		CCPoint kConvertPosition;
+		MineNodePtr pkNode = 0;
+
+		kPoint = m_pkFollowMouseFlag->GetLastReleasePosition();
+
+		if (0 == kPoint.x && 0 == kPoint.y)
+		{
+			return;
+		}
+
+		kTilePosition = g_pGame->GetTilePositionFromLocation(kPoint,
+			m_pkTiledMap);
+
+		pkNode = GetMineNodeFromTilePosition(kTilePosition);
+
+		if (0 == pkNode)
+		{
+			return;
+		}
+		else if(0 == pkNode->pkSprite)
+		{
+			CCRect kRect = CCRectMake(0,0,64,64);
+			kConvertPosition = g_pGame->
+				GetFixedLocationFromTilePosition(kPoint,m_pkTiledMap);
+
+			pkNode->pkParent = m_pkBatchFlag;
+			pkNode->pkSprite = CCSprite::spriteWithTexture(
+				pkNode->pkParent->getTexture(),kRect);
+			pkNode->pkSprite->setPosition(kConvertPosition);
+
+			pkNode->pkParent->addChild(pkNode->pkSprite);
+		}
+	}
+}
+
+MineNodePtr CGameSceneImp::GetMineNodeFromTilePosition( CCPoint kTilePosition )
+{
+	MineNodePtr pkMineNode = 0;
+	CCPoint kFixedPosition;
+
+	kFixedPosition.x = static_cast<float>((int)(kTilePosition.x + 0.5f));
+	kFixedPosition.y = static_cast<float>((int)(kTilePosition.y + 0.5f));
+
+	pkMineNode = m_pkMineMap->GetMineNode(
+		(int)(kFixedPosition.x - m_kMineOffset.x),
+		(int)(kFixedPosition.y - m_kMineOffset.y));
+
+	return pkMineNode;
 }

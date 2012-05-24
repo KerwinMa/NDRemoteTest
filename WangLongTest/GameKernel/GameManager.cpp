@@ -226,6 +226,7 @@ bool CGameManager::UninitialiseScene( IGameScene* pkGameScene )
 		return false;
 	}
 
+	pkGameScene->EndScene();
 	pkGameScene->Shutdown();
 
 	m_pkScenes->erase(it);
@@ -287,6 +288,8 @@ bool CGameManager::StopScene( CCScene* pkScene )
 	{
 		return false;
 	}
+
+	m_pkGameDirector->popScene();
 
 	return true;
 }
@@ -369,6 +372,18 @@ CCPoint CGameManager::GetLocationFromTilePosition( CCPoint kMapPosition,
 	kPosition.y = kTildPosDiv.y * fTileHeight;
 
 	return ccpAdd(kPosition,pkTiledMap->getPosition());
+}
+
+CCPoint CGameManager::GetFixedLocationFromTilePosition( CCPoint kPosition,
+													   CCTMXTiledMap* pkTiledMap )
+{
+	CCPoint kConvertPosition;
+	CCPoint kTilePosition;
+
+	kTilePosition = GetTilePositionFromLocation(kPosition,pkTiledMap);
+	kConvertPosition = GetLocationFromTilePosition(kTilePosition,pkTiledMap);
+
+	return kConvertPosition;
 }
 
 END_KERNEL

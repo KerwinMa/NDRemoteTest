@@ -6,7 +6,9 @@ CMineSweepingMap::CMineSweepingMap(unsigned int uiWidth,
 								   unsigned int uiMineCount):
 m_uiMapWidth(uiWidth),
 m_uiMapHeight(uiHeight),
-m_uiMineCount(uiMineCount)
+m_uiMineCount(uiMineCount),
+m_uiPassedNode(0),
+m_uiTotalNodeCount(0)
 {
 	if ((uiWidth * uiHeight) > uiMineCount)
 	{
@@ -37,6 +39,8 @@ bool CMineSweepingMap::InitliaseMap()
 	{
 		return false;
 	}
+
+	m_uiTotalNodeCount = m_uiMapHeight * m_uiMapWidth;
 
 	for (unsigned int y = 0;y < m_uiMapHeight;y++)
 	{
@@ -235,4 +239,21 @@ MineNodePtr CMineSweepingMap::GetMineNode( int x,int y )
 	}
 
 	return m_kNodeVector[y][x];
+}
+
+MineNodePtr CMineSweepingMap::GetMineNode( CCPoint kPosition )
+{
+	return GetMineNode((int)kPosition.x,(int)kPosition.y);
+}
+
+bool CMineSweepingMap::PassedAddAndCheckWin()
+{
+	m_uiPassedNode++;
+
+	if (m_uiMineCount != (m_uiTotalNodeCount - m_uiPassedNode))
+	{
+		return false;
+	}
+
+	return true;
 }
