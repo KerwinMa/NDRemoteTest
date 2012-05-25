@@ -269,12 +269,11 @@ bool CGameManager::RunOrRepeaceScene( CCScene* pkScene )
 	}
 	else
 	{
-		if (pkRunningScene == pkScene)
-		{
-			m_pkGameDirector->popScene();
-		}
+		ccColor3B kColor = {255,255,255};
+		CCTransitionPageTurn* pkTrans = 
+			CCTransitionPageTurn::transitionWithDuration(2.0f,pkScene,true);
 
-		m_pkGameDirector->replaceScene(pkScene);
+		m_pkGameDirector->replaceScene(pkTrans);
 	}
 
 	return true;

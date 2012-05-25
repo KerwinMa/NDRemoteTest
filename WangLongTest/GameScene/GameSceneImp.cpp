@@ -74,6 +74,11 @@ bool CGameSceneImp::Initialise()
 
 bool CGameSceneImp::Shutdown()
 {
+	setIsTouchEnabled(false);
+	SafeDelete(m_pkMineMap);
+
+	removeAllChildrenWithCleanup(true);
+
 	g_pGame->StopScene(m_pkRootScene);
 
 	return true;
