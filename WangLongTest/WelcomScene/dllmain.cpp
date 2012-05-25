@@ -23,12 +23,11 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
 extern "C" void WELCOMSCENE_DLL StartPlugin()
 {
-	g_pkPlugin = new CWelcomScene;
+	g_pkPlugin = CWelcomScene::node();
 
 	g_pGame->InitialiseScene(g_pkPlugin);
 }
 extern "C" void WELCOMSCENE_DLL StopPlugin()
 {
 	g_pGame->UninitialiseScene(g_pkPlugin);
-	SafeDelete(g_pkPlugin);
 }

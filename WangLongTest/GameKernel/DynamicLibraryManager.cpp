@@ -87,6 +87,10 @@ CDynamicLibrary* CDynamicLibraryManager::LoadDynamicLibrary( const char* pszName
 
 		m_pkDynamicLibraryMap->insert(make_pair(strKey,pkLibrary));
 	}
+	else
+	{
+		pkLibrary = itIndex->second;
+	}
 
 	return pkLibrary;
 }

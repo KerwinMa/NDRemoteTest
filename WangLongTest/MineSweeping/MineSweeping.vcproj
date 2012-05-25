@@ -120,7 +120,7 @@
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\GameKernel\Include;..\..\cocos2d\cocos2dx\include;..\..\cocos2d\cocos2dx\platform;..\..\cocos2d\cocos2dx;..\..\cocos2d\cocos2dx\platform\third_party\win32\OGLES"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				WarningLevel="3"

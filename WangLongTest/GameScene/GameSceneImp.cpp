@@ -20,8 +20,6 @@ m_bIsWin(false),
 m_pkTimeLabel(0),
 m_uiTimeCost(0)
 {
-	setIsTouchEnabled(true);
-
 	m_kScrollPoint.x = -750.0f;
 	m_kScrollPoint.y = -600.0f;
 
@@ -83,6 +81,8 @@ bool CGameSceneImp::Shutdown()
 
 bool CGameSceneImp::BeginScene()
 {
+	setIsTouchEnabled(true);
+
 	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene))
 	{
 		return false;
@@ -386,7 +386,7 @@ bool CGameSceneImp::RenderNumber( unsigned int uiNumber,CCPoint kTilePos )
 
 void CGameSceneImp::RestartButtonCallback( CCObject* pSender )
 {
-	g_pGame->UnloadGame(g_pszName);
+	g_pGame->LoadGame(g_pszName);
 }
 
 void CGameSceneImp::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )

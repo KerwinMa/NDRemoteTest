@@ -145,7 +145,7 @@ bool CGameManager::UnloadGame(const char* pszGameName)
 
 	pFunc();
 
-	g_pDynLib->UnloadDynamicLibrary(pszGameName);
+	//g_pDynLib->UnloadDynamicLibrary(pszGameName);
 
 	return true;
 }
@@ -271,12 +271,10 @@ bool CGameManager::RunOrRepeaceScene( CCScene* pkScene )
 	{
 		if (pkRunningScene == pkScene)
 		{
-			return false;
+			m_pkGameDirector->popScene();
 		}
-		else
-		{
-			m_pkGameDirector->replaceScene(pkScene);
-		}
+
+		m_pkGameDirector->replaceScene(pkScene);
 	}
 
 	return true;

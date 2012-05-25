@@ -23,12 +23,12 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
 extern "C" void GAMESCENE_DLL StartPlugin()
 {
-	g_pkPlugin = new CGameSceneImp;
+	g_pkPlugin = CGameSceneImp::node();
 
 	g_pGame->InitialiseScene(g_pkPlugin);
 }
 extern "C" void GAMESCENE_DLL StopPlugin()
 {
 	g_pGame->UninitialiseScene(g_pkPlugin);
-	SafeDelete(g_pkPlugin);
+	g_pkPlugin = 0;
 }

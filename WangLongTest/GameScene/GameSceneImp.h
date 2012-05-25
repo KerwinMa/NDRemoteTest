@@ -25,6 +25,8 @@ public:
 	virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
 	virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
 
+	LAYER_NODE_FUNC(CGameSceneImp);
+
 protected:
 
 	bool InitialiseUI();
