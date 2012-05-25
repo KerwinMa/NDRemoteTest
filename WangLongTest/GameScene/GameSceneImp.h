@@ -44,7 +44,8 @@ protected:
 	INLINE_READONLY(CMineSweepingMap*,m_pkMineMap,MineSweepingMap);
 	INLINE_READONLY(CCPoint,m_kScrollPoint,ScrollPoint);
 	INLINE_READONLY(bool,m_bIsWin,Win);
-	INLINE_READONLY(unsigned int,m_uiTimeCost,TimeCost);
+	INLINE_READONLY(bool,m_bStartTime,StartTime);
+	INLINE_READONLY(float,m_fTimeCost,TimeCost);
 
 	bool m_bIsFlaged;
 

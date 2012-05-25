@@ -6,6 +6,7 @@ static const char* g_pszName = "GameScene";
 CGameSceneImp::CGameSceneImp():
 m_pkRootScene(0),
 m_pkTiledMap(0),
+m_bStartTime(false),
 m_pkBackgroundLayer(0),
 m_pkMineMap(0),
 m_pkBatchMine(0),
@@ -18,7 +19,7 @@ m_pkFollowMouseFlag(0),
 m_pkBackgroundUI(0),
 m_bIsWin(false),
 m_pkTimeLabel(0),
-m_uiTimeCost(0)
+m_fTimeCost(0.0f)
 {
 	m_kScrollPoint.x = -750.0f;
 	m_kScrollPoint.y = -600.0f;
@@ -139,9 +140,11 @@ bool CGameSceneImp::InitialiseUI()
 
 	m_pkMenu = CCMenu::menuWithItem(m_pkRestartBtn);
 
+	addChild(m_pkTimeLabel,2);
 	addChild(m_pkMenu,2);
 	addChild(m_pkBackgroundUI,1);
 
+	m_pkTimeLabel->setPosition(ccp(700,80));
 	m_pkRestartBtn->setPosition(400,75);
 	m_pkRestartBtn->setScale(0.2f);
 
@@ -194,9 +197,9 @@ void CGameSceneImp::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
 		return;
 	}
 
-	if (!ParseNode(pkNode))
+	if (ParseNode(pkNode) && !m_bStartTime)
 	{
-		return;
+		m_bStartTime = true;
 	}
 }
 
@@ -430,6 +433,19 @@ void CGameSceneImp::Update( ccTime fTime )
 	{
 		MessageBox(0,TEXT("你赢了！人类已经无法阻止你了！"),TEXT("WINNER~~~"),MB_OK);
 		m_bIsWin = false;
+	}
+
+	if (m_bStartTime)
+	{
+		m_fTimeCost += fTime;
+		char szTempTime[200] = {0};
+
+		itoa((int)m_fTimeCost,szTempTime,10);
+
+		if (*szTempTime)
+		{
+			m_pkTimeLabel->setString(szTempTime);
+		}
 	}
 
 	if (m_pkFollowMouseFlag->GetReleased())
