@@ -257,7 +257,9 @@ bool CGameManager::InitialiseFileEngine()
 	return true;
 }
 
-bool CGameManager::RunOrRepeaceScene( CCScene* pkScene )
+bool CGameManager::RunOrRepeaceScene( CCScene* pkScene,
+									 SceneChangeType eType,
+									 float fTime)
 {
 	CCScene* pkRunningScene = 0;
 
@@ -270,10 +272,44 @@ bool CGameManager::RunOrRepeaceScene( CCScene* pkScene )
 	else
 	{
 		ccColor3B kColor = {255,255,255};
-		CCTransitionPageTurn* pkTrans = 
-			CCTransitionPageTurn::transitionWithDuration(2.0f,pkScene,true);
 
-		m_pkGameDirector->replaceScene(pkTrans);
+		switch (eType)
+		{
+		case Scene_None:
+			{
+				Sleep(static_cast<unsigned int>(fTime * 1000.0f));
+				m_pkGameDirector->replaceScene(pkScene);
+			}
+			break;
+		case Scene_PageTurn:
+			{
+				CCTransitionPageTurn* pkTrans = 
+					CCTransitionPageTurn::transitionWithDuration(fTime,pkScene,true);
+
+				m_pkGameDirector->replaceScene(pkTrans);
+			}
+			break;
+		case Scene_Fade:
+			{
+				ccColor3B kColor = {255,255,255};
+
+				CCTransitionFade* pkTrans = 
+					CCTransitionFade::transitionWithDuration(fTime,pkScene,kColor);
+
+				m_pkGameDirector->replaceScene(pkTrans);
+			}
+			break;
+		case Scene_SpriteCols:
+			{
+				CCTransitionSplitCols* pkTrans = 
+					CCTransitionSplitCols::transitionWithDuration(fTime,pkScene);
+
+				m_pkGameDirector->replaceScene(pkTrans);
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	return true;

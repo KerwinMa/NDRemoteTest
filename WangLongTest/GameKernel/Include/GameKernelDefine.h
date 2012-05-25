@@ -141,4 +141,13 @@ typedef struct __tagConfigInfo
 	ColorInfo kColor;
 }ConfigInfo,*ConfigInfoPtr;
 
+typedef enum
+{
+	Scene_None = 0,
+	Scene_PageTurn,
+	Scene_Fade,
+	Scene_SpriteCols,
+	Scene_TransCount
+}SceneChangeType;
+
 #endif

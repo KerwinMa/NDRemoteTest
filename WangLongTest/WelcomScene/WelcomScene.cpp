@@ -40,7 +40,7 @@ bool CWelcomScene::Shutdown()
 
 bool CWelcomScene::BeginScene()
 {
-	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene))
+	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene,Scene_None,0.0f))
 	{
 		return false;
 	}

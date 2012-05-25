@@ -88,7 +88,12 @@ bool CGameSceneImp::BeginScene()
 {
 	setIsTouchEnabled(true);
 
-	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene))
+	srand((unsigned int)time(0));
+
+	SceneChangeType eType = (SceneChangeType)((rand() %
+		(int)(Scene_TransCount - 1)) + 1);
+
+	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene,eType,2.0f))
 	{
 		return false;
 	}

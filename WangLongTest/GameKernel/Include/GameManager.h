@@ -33,7 +33,8 @@ public:
 	virtual bool UnloadGame(const char* pszGameName);
 	virtual bool InitialiseScene(IGameScene* pkGameScene);
 	virtual bool UninitialiseScene(IGameScene* pkGameScene);
-	virtual bool RunOrRepeaceScene(CCScene* pkScene);
+	virtual bool RunOrRepeaceScene(CCScene* pkScene,
+		SceneChangeType eType,float fTime);
 	virtual bool StopScene(CCScene* pkScene);
 	virtual void ExitGame();
 
