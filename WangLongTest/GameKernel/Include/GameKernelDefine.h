@@ -135,6 +135,12 @@ typedef struct __tagColorInfo
 	unsigned char btAlphaValue;
 }ColorInfo,*ColorInfoPtr;
 
+typedef struct __tagResultInfo
+{
+	bool bWin;
+	float fTimeCost;
+}ResultInfo,*ResultInfoPtr;
+
 typedef struct __tagConfigInfo
 {
 	PathInfo kPath;

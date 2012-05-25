@@ -11,10 +11,12 @@ CGameManager::CGameManager():
 m_pszGamePath(0),
 m_bIsInit(false),
 m_pkCurrentScene(0),
+m_pkResults(0),
 m_pkGameDirector(0)
 {
 	m_pszGamePath = new char[MAX_PATH];
 	m_pkScenes = new SceneVector;
+	m_pkResults = new ResultVector;
 
 	memset(m_pszGamePath,0,sizeof(char) * MAX_PATH);
 }
@@ -417,6 +419,32 @@ CCPoint CGameManager::GetFixedLocationFromTilePosition( CCPoint kPosition,
 	kConvertPosition = GetLocationFromTilePosition(kTilePosition,pkTiledMap);
 
 	return kConvertPosition;
+}
+
+bool CGameManager::InsertResultToVector( ResultInfo kInfo )
+{
+	if (0 == m_pkResults)
+	{
+		return false;
+	}
+
+	m_pkResults->push_back(kInfo);
+
+	return true;
+}
+
+bool CGameManager::GetLastResultFromVector( ResultInfo& kInfo )
+{
+	if (0 == m_pkResults || 0 == m_pkResults->size())
+	{
+		return false;
+	}
+
+	ResultVector::iterator it = m_pkResults->end();
+
+	kInfo = *it;
+
+	return true;
 }
 
 END_KERNEL

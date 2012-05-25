@@ -343,7 +343,12 @@ bool CGameSceneImp::ParseNode( MineNodePtr pkNode)
 		break;
 	case St_Mine:
 		{
-			MessageBox(0,L"²Èµ½À×ÁË£¡",L"ERROR",MB_ICONHAND);
+			ResultInfo kInfo = {0};
+			kInfo.bWin = false;
+			kInfo.fTimeCost = m_fTimeCost;
+
+			g_pGame->InsertResultToVector(kInfo);
+			g_pGame->LoadGame("GameResult");
 		}
 		break;
 	default:

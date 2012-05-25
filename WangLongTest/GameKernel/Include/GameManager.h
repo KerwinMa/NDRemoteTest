@@ -15,6 +15,7 @@ class KERNEL_DLL CGameManager
 public:
 
 	typedef vector<IGameScene*> SceneVector,*SceneVectorPtr;
+	typedef vector<ResultInfo> ResultVector,*ResultVectorPtr;
 	
 	CGameManager();
 	virtual ~CGameManager();
@@ -37,6 +38,8 @@ public:
 		SceneChangeType eType,float fTime);
 	virtual bool StopScene(CCScene* pkScene);
 	virtual void ExitGame();
+	virtual bool InsertResultToVector(ResultInfo kInfo);
+	virtual bool GetLastResultFromVector(ResultInfo& kInfo);
 
 protected:
 
@@ -52,6 +55,7 @@ protected:
 	STATIC_READONLY(CGameManager*,ms_pkGameManager,GameManager);
 
 	SceneVectorPtr m_pkScenes;
+	ResultVectorPtr m_pkResults;
 
 private:
 };

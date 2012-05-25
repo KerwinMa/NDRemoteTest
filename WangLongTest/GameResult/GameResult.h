@@ -12,6 +12,7 @@ using namespace GameKernel;
 class CGameResult:public IGameScene
 {
 public:
+
 	CGameResult();
 	virtual ~CGameResult();
 
@@ -20,13 +21,17 @@ public:
 	virtual bool Shutdown();
 	virtual bool BeginScene();
 	virtual bool EndScene();
-	virtual CCScene* GetRootScene() const;
 
 	LAYER_NODE_FUNC(CGameResult);
 
 protected:
 
-	CCScene* m_pkRootScene;
+	bool InitialiseUI();
+
+	SYNTHESIZE_READONLY(CCScene*,m_pkRootScene,RootScene);
+	INLINE_READONLY(ResultInfo,m_kResultInfo,ResultInfo);
+
+	CCSprite* m_pkBackground;
 	char* m_pszName;
 
 private:
