@@ -329,6 +329,8 @@ bool CGameManager::RunOrRepeaceScene( CCScene* pkScene,
 		default:
 			break;
 		}
+
+		eGlobalType = eType;
 	}
 
 	return true;

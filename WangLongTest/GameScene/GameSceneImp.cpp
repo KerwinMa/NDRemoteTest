@@ -105,6 +105,7 @@ bool CGameSceneImp::BeginScene()
 
 bool CGameSceneImp::EndScene()
 {
+	m_pkRootScene->removeAllChildrenWithCleanup(true);
 	removeAllChildrenWithCleanup(true);
 
 	return true;
