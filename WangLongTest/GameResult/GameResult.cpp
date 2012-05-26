@@ -127,3 +127,19 @@ void CGameResult::RestartButtonCallback( CCObject* pkSender )
 
 	g_pGame->LoadGame("GameScene");
 }
+
+bool CGameResult::InitialiseAnimation()
+{
+	CCSpriteFrameCache* pkCache = CCSpriteFrameCache::sharedSpriteFrameCache();
+
+	if (0 == pkCache)
+	{
+		return false;
+	}
+
+	pkCache->addSpriteFramesWithFile("animation\\lose\\animation.plist");
+
+	CCSpriteBatchNode* pkSheet = 0;
+
+	return true;
+}

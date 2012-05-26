@@ -27,6 +27,7 @@ public:
 protected:
 
 	bool InitialiseUI();
+	bool InitialiseAnimation();
 
 	virtual void RestartButtonCallback(CCObject* pkSender);
 
