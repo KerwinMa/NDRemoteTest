@@ -28,7 +28,7 @@ m_fTimeCost(0.0f)
 	m_kMineSize = CCSize(12,14);
 
 	m_pkMineMap = new CMineSweepingMap((unsigned int)m_kMineSize.width,
-		(unsigned int)m_kMineSize.height,10);
+		(unsigned int)m_kMineSize.height,4);
 }
 
 CGameSceneImp::~CGameSceneImp()
@@ -44,12 +44,13 @@ const char* CGameSceneImp::GetName() const
 bool CGameSceneImp::Initialise()
 {
 	m_pkRootScene = CCScene::node();
-	m_pkRootScene->addChild(this);
 
 	if (0 == m_pkRootScene)
 	{
 		return false;
 	}
+
+	m_pkRootScene->addChild(this);
 
 	schedule(schedule_selector(CGameSceneImp::Update));
 
@@ -92,7 +93,7 @@ bool CGameSceneImp::BeginScene()
 	srand((unsigned int)time(0));
 
 	SceneChangeType eType = (SceneChangeType)((rand() %
-		(int)(Scene_TransCount - 1)) + 1);
+		(int)(Scene_TransCount - 3)) + 1);
 
 	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene,eType,2.0f))
 	{
@@ -436,7 +437,16 @@ void CGameSceneImp::Update( ccTime fTime )
 {
 	if (m_bIsWin)
 	{
-		MessageBox(0,TEXT("你赢了！人类已经无法阻止你了！"),TEXT("WINNER~~~"),MB_OK);
+		ResultInfo kInfo = {0};
+
+		kInfo.bWin = true;
+		kInfo.fTimeCost = m_fTimeCost;
+
+		if (g_pGame->InsertResultToVector(kInfo))
+		{
+			g_pGame->LoadGame("GameResult");
+		}
+
 		m_bIsWin = false;
 	}
 

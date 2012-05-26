@@ -248,6 +248,7 @@ bool CGameManager::InitialiseDirector()
 	m_pkGameDirector->setOpenGLView(&CCEGLView::sharedOpenGLView());
 	m_pkGameDirector->setDisplayFPS(true);
 	m_pkGameDirector->setAnimationInterval(1.0f / 30.0f);
+	m_kWindowSize = m_pkGameDirector->getWinSize();
 
 	return true;
 }
@@ -305,6 +306,22 @@ bool CGameManager::RunOrRepeaceScene( CCScene* pkScene,
 			{
 				CCTransitionSplitCols* pkTrans = 
 					CCTransitionSplitCols::transitionWithDuration(fTime,pkScene);
+
+				m_pkGameDirector->replaceScene(pkTrans);
+			}
+			break;
+		case Scene_FadeTR:
+			{
+				CCTransitionFadeTR* pkTrans = 
+					CCTransitionFadeTR::transitionWithDuration(fTime,pkScene);
+
+				m_pkGameDirector->replaceScene(pkTrans);
+			}
+			break;
+		case Scene_RotoZoom:
+			{
+				CCTransitionRotoZoom* pkTrans = 
+					CCTransitionRotoZoom::transitionWithDuration(fTime,pkScene);
 
 				m_pkGameDirector->replaceScene(pkTrans);
 			}
@@ -440,7 +457,7 @@ bool CGameManager::GetLastResultFromVector( ResultInfo& kInfo )
 		return false;
 	}
 
-	ResultVector::iterator it = m_pkResults->end();
+	ResultVector::iterator it = m_pkResults->end() - 1;
 
 	kInfo = *it;
 

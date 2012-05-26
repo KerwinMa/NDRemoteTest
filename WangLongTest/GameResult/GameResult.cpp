@@ -26,6 +26,15 @@ const char* CGameResult::GetName() const
 
 bool CGameResult::Initialise()
 {
+	m_pkRootScene = CCScene::node();
+
+	if (0 == m_pkRootScene)
+	{
+		return false;
+	}
+
+	m_pkRootScene->addChild(this);
+
 	if (!g_pGame->GetLastResultFromVector(m_kResultInfo))
 	{
 		return false;
@@ -46,6 +55,22 @@ bool CGameResult::Shutdown()
 
 bool CGameResult::BeginScene()
 {
+	SceneChangeType eType = Scene_None;
+
+	if (m_kResultInfo.bWin)
+	{
+		eType = Scene_RotoZoom;
+	}
+	else
+	{
+		eType = Scene_FadeTR;
+	}
+
+	if (!g_pGame->RunOrRepeaceScene(m_pkRootScene,eType,1.0f))
+	{
+		return false;
+	}
+
 	return true;
 }
 
@@ -66,6 +91,10 @@ bool CGameResult::InitialiseUI()
 	}
 
 	addChild(m_pkBackground,0);
+
+	CCSize kWinSize = g_pGame->GetWindowSize();
+	m_pkBackground->setPosition(ccp(kWinSize.width / 2.0f,
+		kWinSize.height / 2.0f));
 
 	return true;
 }

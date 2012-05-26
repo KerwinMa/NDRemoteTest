@@ -153,6 +153,8 @@ typedef enum
 	Scene_PageTurn,
 	Scene_Fade,
 	Scene_SpriteCols,
+	Scene_FadeTR,
+	Scene_RotoZoom,
 	Scene_TransCount
 }SceneChangeType;
 

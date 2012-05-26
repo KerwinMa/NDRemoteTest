@@ -52,6 +52,7 @@ protected:
 	INLINE_READONLY(IGameScene*,m_pkCurrentScene,CurrentScene);
 	INLINE_READONLY(bool,m_bIsInit,Initialised);
 	INLINE_READONLY(CCDirector*,m_pkGameDirector,GameDirector);
+	INLINE_READONLY(CCSize,m_kWindowSize,WindowSize);
 	STATIC_READONLY(CGameManager*,ms_pkGameManager,GameManager);
 
 	SceneVectorPtr m_pkScenes;
