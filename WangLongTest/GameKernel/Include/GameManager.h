@@ -29,6 +29,7 @@ public:
 		CCTMXTiledMap* pkTiledMap);
 	static CCPoint GetFixedLocationFromTilePosition(CCPoint kPosition,
 		CCTMXTiledMap* pkTiledMap);
+	static bool ProcessNumberString(string& strOutString,unsigned int uiCount,int nValue);
 
 	virtual bool LoadGame(const char* pszGameName);
 	virtual bool UnloadGame(const char* pszGameName);

@@ -464,4 +464,37 @@ bool CGameManager::GetLastResultFromVector( ResultInfo& kInfo )
 	return true;
 }
 
+bool CGameManager::ProcessNumberString( string& strOutString,
+									   unsigned int uiCount,
+									   int nValue)
+{
+	strOutString = "";
+
+	if (uiCount < 1)
+	{
+		return false;
+	}
+
+	if (nValue > (int)(pow(10,(double)uiCount)))
+	{
+		return false;
+	}
+
+	for (unsigned int i = uiCount;i > 1;i--)
+	{
+		int nMax = (int)(pow(10,(double)i));
+
+		if ((nValue * 10) < nMax)
+		{
+			strOutString += "0";
+		}
+	}
+
+	char szTemp[100] = {0};
+	itoa(nValue,szTemp,10);
+	strOutString += szTemp;
+
+	return true;
+}
+
 END_KERNEL

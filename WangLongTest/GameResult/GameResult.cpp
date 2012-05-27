@@ -3,6 +3,7 @@
 
 CGameResult::CGameResult():
 m_pszName(0),
+m_pkLoseAnimation(0),
 m_pkRootScene(0),
 m_pkBackground(0),
 m_pkMenu(0),
@@ -38,6 +39,11 @@ bool CGameResult::Initialise()
 	m_pkRootScene->addChild(this);
 
 	if (!g_pGame->GetLastResultFromVector(m_kResultInfo))
+	{
+		return false;
+	}
+
+	if (!InitialiseAnimation())
 	{
 		return false;
 	}
@@ -138,8 +144,46 @@ bool CGameResult::InitialiseAnimation()
 	}
 
 	pkCache->addSpriteFramesWithFile("animation\\lose\\animation.plist");
+	CCMutableArray<CCSpriteFrame*> kFrames;
 
-	CCSpriteBatchNode* pkSheet = 0;
+	for (int i = 1;i < 171;i++)
+	{
+		string strFullName = "Lose";
+		string strNum = "";
+
+		if (!g_pGame->ProcessNumberString(strNum,3,i))
+		{
+			continue;
+		}
+
+		strFullName += strNum;
+		strFullName += ".png";
+		CCSpriteFrame* pkFrame = pkCache->spriteFrameByName(strFullName.c_str());
+
+		kFrames.addObject(pkFrame);
+	}
+
+	CCAnimation* pkAnim = CCAnimation::animationWithFrames(&kFrames,0.08f);
+	CCAnimate* pkAnimate = CCAnimate::actionWithAnimation(pkAnim);
+
+	if (0 == pkAnimate)
+	{
+		return false;
+	}
+
+	CCRepeatForever* pkRepeat = CCRepeatForever::actionWithAction(pkAnimate);
+
+	m_pkLoseAnimation = CCSprite::spriteWithFile("data\\animation\\lose\\hh.png");
+
+	if (0 == m_pkLoseAnimation)
+	{
+		return false;
+	}
+
+	addChild(m_pkLoseAnimation,3);
+
+	m_pkLoseAnimation->setPosition(ccp(g_pGame->GetWindowSize().width * 0.5f,200.0f));
+	m_pkLoseAnimation->runAction(pkRepeat);
 
 	return true;
 }

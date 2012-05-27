@@ -34,6 +34,7 @@ protected:
 	SYNTHESIZE_READONLY(CCScene*,m_pkRootScene,RootScene);
 	INLINE_READONLY(ResultInfo,m_kResultInfo,ResultInfo);
 
+	CCSprite* m_pkLoseAnimation;
 	CCSprite* m_pkBackground;
 	CCMenu* m_pkMenu;
 	CCMenuItemImage* m_pkRestartButton;
