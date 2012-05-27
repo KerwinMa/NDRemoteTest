@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <IniFile.h>
+#include <MainGameFrame.h>
 
 using namespace GameKernel;
 
@@ -8,6 +9,9 @@ int WINAPI _tWinMain (HINSTANCE hInstance,
 					  LPTSTR szCmdLine, 
 					  int iCmdShow)
 {
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(szCmdLine);
+
 	CIniFile kParser;
 	
 	if (!kParser.LoadFile(DEF_CONFIG_FILE))
@@ -17,5 +21,9 @@ int WINAPI _tWinMain (HINSTANCE hInstance,
 
 	char* strValue = kParser.GetString("title0","subtitle0");
 
-	return 1;
+	CMainGameFrame kGameFrame(TEXT("Mine Sweeping"));
+
+	kParser.Unload();
+
+	return CCApplication::sharedApplication().run();
 }

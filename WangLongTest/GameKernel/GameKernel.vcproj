@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib"
+				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib gdiplus.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;..\..\Lib\$(ConfigurationName)&quot;;..\..\cocos2d\cocos2dx\platform\third_party\win32\libraries"
 				GenerateDebugInformation="true"
@@ -137,7 +137,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib"
+				AdditionalDependencies="libcocos2d.lib libCocosDenshion.lib libgles_cm.lib liblua.lib gdiplus.lib"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;..\..\Lib\$(ConfigurationName)&quot;;..\..\cocos2d\cocos2dx\platform\third_party\win32\libraries"
 				GenerateDebugInformation="true"
@@ -179,6 +179,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\AlphaKernel.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ConfigManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\dllmain.cpp"
 				>
 				<FileConfiguration
@@ -201,11 +209,23 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\DynamicLibrary.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DynamicLibraryManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GameManager.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\IniFile.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MainGameFrame.cpp"
 				>
 			</File>
 			<File
@@ -249,6 +269,22 @@
 			Name="Include"
 			>
 			<File
+				RelativePath=".\Include\AlphaKernel.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Include\ConfigManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Include\DynamicLibrary.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Include\DynamicLibraryManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Include\GameKernelDefine.h"
 				>
 			</File>
@@ -257,7 +293,15 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Include\GameScene.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Include\IniFile.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Include\MainGameFrame.h"
 				>
 			</File>
 		</Filter>

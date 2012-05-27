@@ -106,7 +106,7 @@ char* CIniFile::GetString( const char* pszTitle,
 	strValue = itSubMap->second;
 
 	pszReturn = new char[strValue.length() + 1];
-	memset(pszReturn,0,sizeof(char) * strValue.length());
+	memset(pszReturn,0,sizeof(char) * (strValue.length() + 1));
 	strcpy_s(pszReturn,strValue.length() + 1,strValue.c_str());
 
 	return pszReturn;
@@ -178,7 +178,7 @@ bool CIniFile::ParseData( StringVector kStringVector )
 
 		if (ParseTitle(strText))
 		{
-			SafeDelete(pkSubMap);
+			pkSubMap = 0;
 			pkSubMap = new SubTitleMap;
 			m_kTitleMap.insert(make_pair(strText,pkSubMap));
 			continue;
@@ -258,7 +258,8 @@ bool CIniFile::ParseTitle( string& strText )
 	return true;
 }
 
-bool CIniFile::ParseSubTitle( string strText,SubTitleMapPtr pkTitleMap )
+bool CIniFile::ParseSubTitle( string strText,
+							 SubTitleMapPtr pkTitleMap )
 {
 	if (0 == strText.length())
 	{
@@ -287,9 +288,18 @@ bool CIniFile::ClearStringMap( TitleMap* pkVector )
 		return false;
 	}
 
-	for (TitleMap::iterator it = pkVector->begin();pkVector->end() != it;it++)
+	for (TitleMap::iterator it = pkVector->begin();
+		pkVector->end() != it;it++)
 	{
-		SubTitleMapPtr pkSub = it->second;
+		SubTitleMapPtr pkSub = 0;
+		
+		pkSub = it->second;
+		
+		if (pkSub)
+		{
+			pkSub->clear();
+		}
+
 		SafeDelete(pkSub);
 	}
 
